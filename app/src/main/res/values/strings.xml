@@ -1,0 +1,103 @@
+<resources>
+    <string name="app_name">My Movie List</string>
+    <string name="poster">Poster</string>
+    <string name="home_subtitle">Dicoding submission 1</string>
+    <string name="overview">Overview</string>
+    <string name="user_score">User\nScore</string>
+    <string-array name="judul">
+        <item name="1">A Star Is Born</item>
+        <item name="2">Aquaman</item>
+        <item name="3">Avengers: Infinity War</item>
+        <item name="4">Bird Box</item>
+        <item name="5">Bohemian Rhapsody</item>
+        <item name="6">Bumblebee</item>
+        <item name="7">Creed II</item>
+        <item name="8">Deadpool</item>
+        <item name="9">How To Train Your Dragon: The Hidden World</item>
+        <item name="10">Dragon Ball Super: Broly</item>
+    </string-array>
+    <string-array name="deskripsi">
+        <item name="1">Seasoned musician Jackson Maine discovers — and falls in love with — struggling artist Ally. She has just about given up on her dream to make it big as a singer — until Jack coaxes her into the spotlight. But even as Ally\'s career takes off, the personal side of their relationship is breaking down, as Jack fights an ongoing battle with his own internal demons.</item>
+        <item name="2">Once home to the most advanced civilization on Earth, Atlantis is now an underwater kingdom ruled by the power-hungry King Orm. With a vast army at his disposal, Orm plans to conquer the remaining oceanic people and then the surface world. Standing in his way is Arthur Curry, Orm\'s half-human, half-Atlantean brother and true heir to the throne.</item>
+        <item name="3">As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy, his goal is to collect all six Infinity Stones, artifacts of unimaginable power, and use them to inflict his twisted will on all of reality. Everything the Avengers have fought for has led up to this moment - the fate of Earth and existence itself has never been more uncertain.</item>
+        <item name="4">Five years after an ominous unseen presence drives most of society to suicide, a survivor and her two children make a desperate bid to reach safety.</item>
+        <item name="5">Singer Freddie Mercury, guitarist Brian May, drummer Roger Taylor and bass guitarist John Deacon take the music world by storm when they form the rock \'n\' roll band Queen in 1970. Hit songs become instant classics. When Mercury\'s increasingly wild lifestyle starts to spiral out of control, Queen soon faces its greatest challenge yet – finding a way to keep the band together amid the success and excess.</item>
+        <item name="6">On the run in the year 1987, Bumblebee finds refuge in a junkyard in a small Californian beach town. Charlie, on the cusp of turning 18 and trying to find her place in the world, discovers Bumblebee, battle-scarred and broken. When Charlie revives him, she quickly learns this is no ordinary yellow VW bug.</item>
+        <item name="7">Between personal obligations and training for his next big fight against an opponent with ties to his family\'s past, Adonis Creed is up against the challenge of his life.</item>
+        <item name="8">Deadpool tells the origin story of former Special Forces operative turned mercenary Wade Wilson, who after being subjected to a rogue experiment that leaves him with accelerated healing powers, adopts the alter ego Deadpool. Armed with his new abilities and a dark, twisted sense of humor, Deadpool hunts down the man who nearly destroyed his life.</item>
+        <item name="9">As Hiccup fulfills his dream of creating a peaceful dragon utopia, Toothless’ discovery of an untamed, elusive mate draws the Night Fury away. When danger mounts at home and Hiccup’s reign as village chief is tested, both dragon and rider must make impossible decisions to save their kind.</item>
+        <item name="10">Earth is peaceful following the Tournament of Power. Realizing that the universes still hold many more strong people yet to see, Goku spends all his days training to reach even greater heights. Then one day, Goku and Vegeta are faced by a Saiyan called \'Broly\' who they\'ve never seen before. The Saiyans were supposed to have been almost completely wiped out in the destruction of Planet Vegeta, so what\'s this one doing on Earth? This encounter between the three Saiyans who have followed completely different destinies turns into a stupendous battle, with even Frieza (back from Hell) getting caught up in the mix.</item>
+    </string-array>
+    <string-array name="tgl_rilis">
+        <item name="1">5 Oktober 2018</item>
+        <item name="2">21 Desember 2018</item>
+        <item name="3">23 April 2018</item>
+        <item name="4">12 Desember 2018</item>
+        <item name="5">30 Oktober 2018</item>
+        <item name="6">21 Desember 2018</item>
+        <item name="7">14 November 2018</item>
+        <item name="8">12 Februari 2016</item>
+        <item name="9">22 Februari 2019</item>
+        <item name="10">13 Desember 2018</item>
+    </string-array>
+    <string-array name="durasi">
+        <item name="1">2 Jam 15 Menit</item>
+        <item name="2">2 Jam 24 Menit</item>
+        <item name="3">2 Jam 29 Menit</item>
+        <item name="4">2 jam 4 Menit</item>
+        <item name="5">2 Jam 15 Menit</item>
+        <item name="6">1 Jam 54 Menit</item>
+        <item name="7">2 Jam 10 Menit</item>
+        <item name="8">1 Jam 48 Menit</item>
+        <item name="9">1 Jam 44 Menit</item>
+        <item name="10">1 Jam 41 Menit</item>
+    </string-array>
+    <string-array name="budget">
+        <item name="1">$36,000,000.00</item>
+        <item name="2">$160,000,000.00</item>
+        <item name="3">$300,000,000.00</item>
+        <item name="4">$19,800,000.00</item>
+        <item name="5">$52,000,000.00</item>
+        <item name="6">$135,000,000.00</item>
+        <item name="7">$50,000,000.00</item>
+        <item name="8">$58,000,000.00</item>
+        <item name="9">$129,000,000.00</item>
+        <item name="10">$1,000,000.00</item>
+    </string-array>
+    <string-array name="revenue">
+        <item name="1">$433,888,866.00</item>
+        <item name="2">$1,143,689,193.00</item>
+        <item name="3">$2,046,239,637.00</item>
+        <item name="4">-</item>
+        <item name="5">$835,137,710.00</item>
+        <item name="6">$465,895,025.00</item>
+        <item name="7">$137,944,327.00</item>
+        <item name="8">$783,100,000.00</item>
+        <item name="9">$517,526,875.00</item>
+        <item name="10">$114,102,821.00</item>
+    </string-array>
+    <integer-array name="skor">
+        <item name="1">75</item>
+        <item name="2">68</item>
+        <item name="3">83</item>
+        <item name="4">70</item>
+        <item name="5">81</item>
+        <item name="6">65</item>
+        <item name="7">67</item>
+        <item name="8">76</item>
+        <item name="9">77</item>
+        <item name="10">74</item>
+    </integer-array>
+    <string-array name="genre">
+        <item name="1">Drama, Romance, Music</item>
+        <item name="2">Action, Adventure, Fantasy</item>
+        <item name="3">Adventure, Action, Fantasy</item>
+        <item name="4">Thriller, Drama</item>
+        <item name="5">Drama, Music</item>
+        <item name="6">Action, Adventure, Science Fiction</item>
+        <item name="7">Drama</item>
+        <item name="8">Action, Adventure, Comedy</item>
+        <item name="9">Animation, Family, Adventure</item>
+        <item name="10">Action, Animation, Fantasy</item>
+    </string-array>
+</resources>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".detail.DetailActivity">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="20dp">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="3dp"
+                    app:cardElevation="2dp">
+
+                <ImageView
+                        android:id="@+id/ivPoster"
+                        android:layout_width="200dp"
+                        android:layout_height="300dp"
+                        android:src="@drawable/poster_dragon"
+                        android:contentDescription="@string/poster"/>
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="10dp">
+
+                <TextView
+                        android:id="@+id/txJudul"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="How To Train Your Dragon: The Hidden World"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:justificationMode="inter_word"
+                        tools:targetApi="o"
+                        tools:ignore="HardcodedText"/>
+
+                <TextView
+                        android:id="@+id/txGenre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Action, Adventure, Science Fiction"
+                        android:drawableStart="@drawable/ic_genre"
+                        android:drawablePadding="5dp"
+                        android:layout_marginTop="15dp"
+                        android:drawableTint="@color/colorPrimaryDark"
+                        tools:ignore="HardcodedText"
+                        tools:targetApi="m"/>
+
+                <TextView
+                        android:id="@+id/txRilis"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12 Desember 2018"
+                        android:drawableStart="@drawable/ic_date"
+                        android:drawablePadding="5dp"
+                        android:layout_marginTop="7dp"
+                        android:drawableTint="@color/colorPrimaryDark"
+                        tools:ignore="HardcodedText"
+                        tools:targetApi="m"/>
+
+                <TextView
+                        android:id="@+id/txDurasi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2 Jam 15 Menit"
+                        android:drawableStart="@drawable/ic_duration"
+                        android:drawablePadding="6dp"
+                        android:layout_marginTop="7dp"
+                        android:drawableTint="@color/colorPrimaryDark"
+                        tools:ignore="HardcodedText"
+                        tools:targetApi="m"/>
+
+                <TextView
+                        android:id="@+id/txBudget"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$160,000,000.00"
+                        android:drawableStart="@drawable/ic_outcome"
+                        android:drawablePadding="6dp"
+                        android:layout_marginTop="7dp"
+                        android:drawableTint="@color/colorPrimaryDark"
+                        tools:ignore="HardcodedText"
+                        tools:targetApi="m"/>
+
+                <TextView
+                        android:id="@+id/txRevenue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$1,143,689,193.00"
+                        android:drawableStart="@drawable/ic_income"
+                        android:drawablePadding="6dp"
+                        android:layout_marginTop="7dp"
+                        android:drawableTint="@color/colorPrimaryDark"
+                        tools:ignore="HardcodedText"
+                        tools:targetApi="m"/>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginVertical="10dp"
+                        tools:targetApi="o">
+
+                    <com.dinuscxj.progressbar.CircleProgressBar
+                            android:id="@+id/circleBar"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:style="solid_line"
+                            app:progress_stroke_width="1dp"
+                            app:progress_start_color="@color/colorPrimaryDark"
+                            app:progress_end_color="@color/colorAccent"
+                            app:progress_start_degree="-90"
+                            app:drawBackgroundOutsideProgress="true"
+                            app:progress_stroke_cap="round"
+                            app:progress_text_color="#000"
+                            app:line_width="4dp"
+                            app:line_count="30"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_score"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:textSize="16sp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/overview"
+                android:layout_marginTop="15dp"
+                android:textSize="22sp"
+                android:textStyle="bold"/>
+
+        <TextView
+                android:id="@+id/txDeskripsi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Earth is peaceful following the Tournament of Power. Realizing that the universes still hold many more strong people yet to see, Goku spends all his days training to reach even greater heights. Then one day, Goku and Vegeta are faced by a Saiyan called \'Broly\' who they\'ve never seen before. The Saiyans were supposed to have been almost completely wiped out in the destruction of Planet Vegeta, so what\'s this one doing on Earth? This encounter between the three Saiyans who have followed completely different destinies turns into a stupendous battle, with even Frieza (back from Hell) getting caught up in the mix."
+                android:textSize="16sp"
+                android:justificationMode="inter_word"
+                android:layout_marginTop="5dp"
+                tools:ignore="HardcodedText"
+                tools:targetApi="o"/>
+    </LinearLayout>
+</ScrollView>

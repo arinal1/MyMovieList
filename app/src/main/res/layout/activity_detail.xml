@@ -5,18 +5,22 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".detail.DetailActivity">
+        tools:context=".ui.detail.DetailActivity">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             android:orientation="vertical"
             android:layout_margin="20dp">
 
         <LinearLayout
+                android:id="@+id/llHeader"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
             <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
@@ -34,7 +38,7 @@
 
             <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:layout_marginStart="10dp">
 
@@ -59,7 +63,8 @@
                         android:layout_marginTop="15dp"
                         android:drawableTint="@color/colorPrimaryDark"
                         tools:ignore="HardcodedText"
-                        tools:targetApi="m"/>
+                        tools:targetApi="m"
+                        android:gravity="center_vertical"/>
 
                 <TextView
                         android:id="@+id/txRilis"
@@ -71,7 +76,8 @@
                         android:layout_marginTop="7dp"
                         android:drawableTint="@color/colorPrimaryDark"
                         tools:ignore="HardcodedText"
-                        tools:targetApi="m"/>
+                        tools:targetApi="m"
+                        android:gravity="center_vertical"/>
 
                 <TextView
                         android:id="@+id/txDurasi"
@@ -83,7 +89,8 @@
                         android:layout_marginTop="7dp"
                         android:drawableTint="@color/colorPrimaryDark"
                         tools:ignore="HardcodedText"
-                        tools:targetApi="m"/>
+                        tools:targetApi="m"
+                        android:gravity="center_vertical"/>
 
                 <TextView
                         android:id="@+id/txBudget"
@@ -95,7 +102,8 @@
                         android:layout_marginTop="7dp"
                         android:drawableTint="@color/colorPrimaryDark"
                         tools:ignore="HardcodedText"
-                        tools:targetApi="m"/>
+                        tools:targetApi="m"
+                        android:gravity="center_vertical"/>
 
                 <TextView
                         android:id="@+id/txRevenue"
@@ -107,7 +115,13 @@
                         android:layout_marginTop="7dp"
                         android:drawableTint="@color/colorPrimaryDark"
                         tools:ignore="HardcodedText"
-                        tools:targetApi="m"/>
+                        tools:targetApi="m"
+                        android:gravity="center_vertical"/>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
 
                 <LinearLayout
                         android:layout_width="match_parent"
@@ -143,12 +157,15 @@
         </LinearLayout>
 
         <TextView
+                android:id="@+id/txOverview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/overview"
                 android:layout_marginTop="15dp"
                 android:textSize="22sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/llHeader"/>
 
         <TextView
                 android:id="@+id/txDeskripsi"
@@ -159,6 +176,8 @@
                 android:justificationMode="inter_word"
                 android:layout_marginTop="5dp"
                 tools:ignore="HardcodedText"
-                tools:targetApi="o"/>
-    </LinearLayout>
+                tools:targetApi="o"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txOverview"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

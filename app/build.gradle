@@ -8,7 +8,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
     defaultConfig {
-        applicationId "com.arinal.submission1"
+        applicationId "com.arinal.made"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
@@ -34,8 +34,12 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation "org.jetbrains.anko:anko-common:$ankoVersion"
     //noinspection GradleCompatible
+    implementation 'com.android.support:design:25.1.0'
+    //noinspection GradleCompatible
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.dinuscxj:circleprogressbar:1.3.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

@@ -5,26 +5,26 @@ import com.arinal.made.R.array.*
 import com.arinal.made.R.drawable.*
 import com.arinal.made.data.model.FilmModel
 
-class FilmData(private val resources: Resources) {
+class FilmRepo(private val resources: Resources) {
 
     fun getMovie(): List<FilmModel>{
-        val judul = resources.getStringArray(movies_judul)
-        val deskripsi = resources.getStringArray(movies_deskripsi)
-        val rilis = resources.getStringArray(movies_tgl_rilis)
-        val durasi = resources.getStringArray(movies_durasi)
+        val judul = resources.getStringArray(movies_title)
+        val deskripsi = resources.getStringArray(movies_overview)
+        val rilis = resources.getStringArray(movies_release)
+        val durasi = resources.getStringArray(movies_duration)
         val budget = resources.getStringArray(movies_budget)
         val revenue = resources.getStringArray(movies_revenue)
-        val skor = resources.getIntArray(movies_skor)
+        val skor = resources.getIntArray(movies_score)
         val genre = resources.getStringArray(movies_genre)
         return generateData(true, judul, deskripsi, rilis, durasi, budget, revenue, skor, genre)
     }
 
     fun getTvShow(): List<FilmModel>{
-        val judul = resources.getStringArray(tv_shows_judul)
-        val deskripsi = resources.getStringArray(tv_shows_deskripsi)
-        val rilis = resources.getStringArray(tv_shows_tgl_rilis)
-        val durasi = resources.getStringArray(tv_shows_durasi)
-        val skor = resources.getIntArray(tv_shows_skor)
+        val judul = resources.getStringArray(tv_shows_title)
+        val deskripsi = resources.getStringArray(tv_shows_overview)
+        val rilis = resources.getStringArray(tv_shows_release)
+        val durasi = resources.getStringArray(tv_shows_duration)
+        val skor = resources.getIntArray(tv_shows_score)
         val genre = resources.getStringArray(tv_shows_genre)
         return generateData(false, judul, deskripsi, rilis, durasi, null, null, skor, genre)}
 

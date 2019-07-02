@@ -3,7 +3,6 @@ package com.arinal.made.ui.base
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.Html
 import android.text.Html.fromHtml
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity

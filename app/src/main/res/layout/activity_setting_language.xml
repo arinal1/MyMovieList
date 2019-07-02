@@ -5,14 +5,14 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.arinal.made.ui.settingbahasa.SettingBahasaActivity"
+        tools:context="com.arinal.made.ui.settinglang.SettingLanguageActivity"
         android:padding="20dp">
 
     <TextView
             android:id="@+id/tvSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/pilih_bahasa"
+            android:text="@string/choose_language"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:textSize="18sp"/>

@@ -5,12 +5,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.arinal.made.R
-import com.arinal.made.data.local.FilmData
+import com.arinal.made.data.local.FilmRepo
 
 class HomePagerAdapter(private val context: Context, private val mInterface: HomeInterface, fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
-        val dataRepo = FilmData(context.resources)
+        val dataRepo = FilmRepo(context.resources)
         return when (position) {
             0 -> HomeFragment.newInstance(dataRepo.getMovie(), mInterface)
             else -> HomeFragment.newInstance(dataRepo.getTvShow(), mInterface)

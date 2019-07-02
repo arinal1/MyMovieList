@@ -38,10 +38,10 @@ class HomeAdapter(private val context: Context, private val data: List<FilmModel
         }
 
         val poster: ImageView = view.findViewById(R.id.ivPoster)
-        val judul: TextView = view.findViewById(R.id.txJudul)
-        val rilis: TextView = view.findViewById(R.id.txRilis)
+        val judul: TextView = view.findViewById(R.id.txTitle)
+        val rilis: TextView = view.findViewById(R.id.txRelease)
         val genre: TextView = view.findViewById(R.id.txGenre)
-        val txSinopsis: TextView = view.findViewById(R.id.txSinopsis)
+        val txSinopsis: TextView = view.findViewById(R.id.txTitleOverview)
         val separator: View = view.findViewById(R.id.separator)
     }
 }

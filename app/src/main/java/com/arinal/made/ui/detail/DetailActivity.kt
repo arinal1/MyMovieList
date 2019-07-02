@@ -20,13 +20,13 @@ class DetailActivity : BaseActivity() {
     private fun initData(){
         val data = intent.getParcelableExtra<FilmModel>("data")!!
         ivPoster.setImageResource(data.poster)
-        txJudul.text = data.judul
+        txTitle.text = data.judul
         txGenre.text = data.genre
-        txRilis.text = data.rilis
-        txDurasi.text = data.durasi
+        txRelease.text = data.rilis
+        txDuration.text = data.durasi
         if (data.budget == "") txBudget.visibility = View.GONE else txBudget.text = data.budget
         if (data.revenue == "") txRevenue.visibility = View.GONE else txRevenue.text = data.revenue
-        txDeskripsi.text = data.deskripsi
+        txOverview.text = data.deskripsi
         circleBar.progress = data.skor
     }
 }

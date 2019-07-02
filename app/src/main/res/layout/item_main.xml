@@ -26,7 +26,7 @@
                 android:layout_marginStart="10dp">
 
             <TextView
-                    android:id="@+id/txJudul"
+                    android:id="@+id/txTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Title of the movie: For View Only"
@@ -34,7 +34,7 @@
                     tools:ignore="HardcodedText"/>
 
             <TextView
-                    android:id="@+id/txRilis"
+                    android:id="@+id/txRelease"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="31 Januari 2019"
@@ -51,7 +51,7 @@
                     tools:ignore="HardcodedText"/>
 
             <TextView
-                    android:id="@+id/txSinopsis"
+                    android:id="@+id/txTitleOverview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Seasoned musician Jackson Maine discovers — and falls in love with — struggling artist Ally. She has just about given up on her dream to ..."

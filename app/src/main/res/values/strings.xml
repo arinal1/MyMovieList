@@ -3,17 +3,17 @@
     <string name="poster">Poster</string>
     <string name="tab_home_1">Movies</string>
     <string name="tab_home_2">Tv Shows</string>
-    <string name="home_subtitle">Dicoding submission 2</string>
+    <string name="title_setting_language">Pengaturan Bahasa</string>
+    <string name="title_detail">Detail Film</string>
+    <string name="subtitle_home">Dicoding submission 2</string>
     <string name="overview">Sinopsis</string>
     <string name="user_score">Skor\nPengguna</string>
     <string name="setting">Pengaturan</string>
     <string name="bahasa_indonesia">Bahasa Indonesia</string>
     <string name="english">English</string>
-    <string name="pilih_bahasa">Pilih bahasa yang digunakan untuk aplikasi</string>
-    <string name="title_setting_bahasa">Pengaturan Bahasa</string>
-    <string name="msg_sukses_set_bahasa">Berhasil mengganti bahasa</string>
-    <string name="title_detail">Detail Film</string>
-    <string-array name="movies_judul">
+    <string name="choose_language">Pilih bahasa yang digunakan untuk aplikasi</string>
+    <string name="msg_success_set_language">Berhasil mengganti bahasa</string>
+    <string-array name="movies_title">
         <item name="1">A Star Is Born</item>
         <item name="2">Aquaman</item>
         <item name="3">Avengers: Infinity War</item>
@@ -25,7 +25,7 @@
         <item name="9">How To Train Your Dragon: The Hidden World</item>
         <item name="10">Dragon Ball Super: Broly</item>
     </string-array>
-    <string-array name="movies_deskripsi">
+    <string-array name="movies_overview">
         <item name="1">Musisi kawakan Jackson Maine menemukan - dan jatuh cinta dengan - artis yang sedang berjuang Ally. Dia baru saja menyerah pada mimpinya untuk menjadi besar sebagai penyanyi - sampai Jack membujuknya menjadi sorotan. Tetapi bahkan ketika karir Ally lepas landas, sisi pribadi dari hubungan mereka hancur, seperti Jack berjuang pertempuran yang sedang berlangsung dengan setan internalnya sendiri.</item>
         <item name="2">Dulunya merupakan rumah bagi peradaban paling maju di Bumi, Atlantis sekarang merupakan kerajaan bawah laut yang diperintah oleh Raja Orm yang haus kekuasaan. Dengan pasukan yang sangat besar, Orm berencana untuk menaklukkan orang-orang samudera yang tersisa dan kemudian ke permukaan dunia. Yang menghalangi jalannya adalah Arthur Curry, saudara setengah manusia, setengah saudara lelaki Atlantis dan pewaris sejati takhta.</item>
         <item name="3">Ketika Avengers dan sekutu mereka terus melindungi dunia dari ancaman yang terlalu besar untuk ditangani oleh satu pahlawan, bahaya baru telah muncul dari bayang-bayang kosmik: Thanos. Seorang lalim penghinaan intergalaksi, tujuannya adalah untuk mengumpulkan semua enam Batu Infinity, artefak kekuatan tak terbayangkan, dan menggunakannya untuk menimbulkan keinginannya yang terpelintir pada semua kenyataan. Segala yang Avengers telah perjuangkan telah mengarah ke saat ini - nasib Bumi dan keberadaannya sendiri tidak pernah lebih pasti.</item>
@@ -37,7 +37,7 @@
         <item name="9">Ketika Hiccup memenuhi mimpinya untuk menciptakan utopia naga yang damai, penemuan Toothless \'dari pasangan yang tak teruji dan sukar ditangkap membuat Night Fury menjauh. Ketika bahaya meningkat di rumah dan pemerintahan Hiccup sebagai kepala desa diuji, baik naga dan pengendara harus membuat keputusan yang mustahil untuk menyelamatkan jenis mereka.</item>
         <item name="10">Bumi damai setelah Turnamen Kekuasaan. Menyadari bahwa alam semesta masih memiliki banyak orang yang lebih kuat untuk dilihat, Goku menghabiskan seluruh hari pelatihannya untuk mencapai ketinggian yang lebih besar. Lalu suatu hari, Goku dan Vegeta dihadapkan oleh seorang Saiyan yang disebut \'Broly\' yang belum pernah mereka lihat sebelumnya. Orang-orang Saiyan seharusnya hampir sepenuhnya musnah dalam kehancuran Planet Vegeta, jadi apa yang dilakukan orang ini di Bumi? Pertemuan antara tiga Saiyan yang telah mengikuti takdir yang sangat berbeda ini berubah menjadi pertempuran yang luar biasa, dengan bahkan Frieza (kembali dari Neraka) terperangkap dalam campuran.</item>
     </string-array>
-    <string-array name="movies_tgl_rilis">
+    <string-array name="movies_release">
         <item name="1">5 Oktober 2018</item>
         <item name="2">21 Desember 2018</item>
         <item name="3">23 April 2018</item>
@@ -49,7 +49,7 @@
         <item name="9">22 Februari 2019</item>
         <item name="10">13 Desember 2018</item>
     </string-array>
-    <string-array name="movies_durasi">
+    <string-array name="movies_duration">
         <item name="1">2 Jam 15 Menit</item>
         <item name="2">2 Jam 24 Menit</item>
         <item name="3">2 Jam 29 Menit</item>
@@ -85,7 +85,7 @@
         <item name="9">$517,526,875.00</item>
         <item name="10">$114,102,821.00</item>
     </string-array>
-    <integer-array name="movies_skor">
+    <integer-array name="movies_score">
         <item name="1">75</item>
         <item name="2">68</item>
         <item name="3">83</item>
@@ -109,7 +109,7 @@
         <item name="9">Animasi, Keluarga, Petualangan</item>
         <item name="10">Aksi, Animasi, Fantasi</item>
     </string-array>
-    <string-array name="tv_shows_judul">
+    <string-array name="tv_shows_title">
         <item name="1">One-Punch Man</item>
         <item name="2">The Flash</item>
         <item name="3">Arrow</item>
@@ -121,7 +121,7 @@
         <item name="9">Marvel\'s Agents of S.H.I.E.L.D.</item>
         <item name="10">Fear the Walking Dead</item>
     </string-array>
-    <string-array name="tv_shows_deskripsi">
+    <string-array name="tv_shows_overview">
         <item name="1">Saitama adalah pahlawan yang hanya menjadi pahlawan untuk bersenang-senang. Namun, setelah tiga tahun pelatihan "istimewa", ia menjadi begitu kuat sehingga praktis tidak terkalahkan. Faktanya, dia terlalu kuat — bahkan lawan terkuatnya dikeluarkan dengan satu pukulan, dan ternyata menjadi sangat dahsyat sebenarnya agak membosankan. Dengan hasratnya untuk menjadi pahlawan yang hilang bersamaan dengan rambutnya, namun masih berhadapan dengan musuh baru setiap hari, berapa lama lagi dia bisa mempertahankannya?</item>
         <item name="2">Setelah akselerator partikel menyebabkan badai aneh, Penyelidik CSI Barry Allen disambar petir dan jatuh koma. Beberapa bulan kemudian dia terbangun dengan kekuatan kecepatan super, memberinya kemampuan untuk bergerak melalui Central City seperti malaikat penjaga yang tak terlihat. Meskipun awalnya senang dengan kekuatan barunya, Barry terkejut menemukan bahwa dia bukan satu-satunya "manusia meta" yang diciptakan setelah ledakan akselerator - dan tidak semua orang menggunakan kekuatan baru mereka untuk kebaikan. Barry bermitra dengan S.T.A.R. Lab dan mendedikasikan hidupnya untuk melindungi yang tidak bersalah. Untuk saat ini, hanya beberapa teman dekat dan rekan yang tahu bahwa Barry secara harfiah adalah manusia tercepat, tetapi tidak akan lama sebelum dunia mengetahui apa yang menjadi Barry Allen … The Flash.</item>
         <item name="3">Playboy miliarder manja, Oliver Queen, hilang dan diduga tewas ketika kapal pesiarnya hilang di laut. Dia kembali lima tahun kemudian seorang pria yang berubah, bertekad untuk membersihkan kota sebagai main hakim sendiri bersenjatakan busur.</item>
@@ -135,7 +135,7 @@ Meskipun hancur oleh kenyataan suram ini, Tanjiro memutuskan untuk menjadi "pemb
         <item name="9">Agen Phil Coulson dari S.H.I.E.L.D. (Divisi Intervensi, Penegakan dan Logistik Tanah Air Strategis) membentuk sebuah tim agen untuk menyelidiki yang baru, yang aneh dan yang tidak diketahui di seluruh dunia, melindungi yang biasa dari yang luar biasa.</item>
         <item name="10">Seperti apa dunia saat berubah menjadi kiamat mengerikan yang digambarkan dalam "The Walking Dead"? Spin-off ini ditetapkan di Los Angeles, mengikuti karakter baru saat mereka menghadapi awal akhir dunia, akan menjawab pertanyaan itu.</item>
     </string-array>
-    <string-array name="tv_shows_tgl_rilis">
+    <string-array name="tv_shows_release">
         <item name="1">2015</item>
         <item name="2">2014</item>
         <item name="3">2012</item>
@@ -147,7 +147,7 @@ Meskipun hancur oleh kenyataan suram ini, Tanjiro memutuskan untuk menjadi "pemb
         <item name="9">2013</item>
         <item name="10">2015</item>
     </string-array>
-    <string-array name="tv_shows_durasi">
+    <string-array name="tv_shows_duration">
         <item name="1">24 menit</item>
         <item name="2">44 menit</item>
         <item name="3">42 menit</item>
@@ -159,7 +159,7 @@ Meskipun hancur oleh kenyataan suram ini, Tanjiro memutuskan untuk menjadi "pemb
         <item name="9">43 menit</item>
         <item name="10">43 menit, 60 menit</item>
     </string-array>
-    <integer-array name="tv_shows_skor">
+    <integer-array name="tv_shows_score">
         <item name="1">80</item>
         <item name="2">67</item>
         <item name="3">58</item>

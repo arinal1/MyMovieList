@@ -1,6 +1,5 @@
 package com.arinal.made.ui.home
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Parcel
@@ -10,7 +9,7 @@ import com.arinal.made.R
 import com.arinal.made.data.model.FilmModel
 import com.arinal.made.ui.base.BaseActivity
 import com.arinal.made.ui.detail.DetailActivity
-import com.arinal.made.ui.settingbahasa.SettingBahasaActivity
+import com.arinal.made.ui.settinglang.SettingLanguageActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import org.jetbrains.anko.startActivity
 
@@ -37,13 +36,8 @@ class HomeActivity : BaseActivity() {
         return true
     }
 
-    override fun attachBaseContext(newBase: Context?) {
-//        resources.configuration.locale
-        super.attachBaseContext(newBase)
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.setting) startActivity<SettingBahasaActivity>()
+        if (item.itemId == R.id.setting) startActivity<SettingLanguageActivity>()
         return super.onOptionsItemSelected(item)
     }
 }

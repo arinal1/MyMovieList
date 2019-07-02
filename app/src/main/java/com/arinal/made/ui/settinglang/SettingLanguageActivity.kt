@@ -29,6 +29,7 @@ class SettingLanguageActivity : BaseActivity() {
 
     private fun localize(locale: Locale) {
         setLocale(locale)
+        goHome = false
         startActivity<SettingLanguageActivity>("afterSuccess" to true)
         finish()
     }

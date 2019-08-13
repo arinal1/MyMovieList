@@ -10,8 +10,26 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:orientation="vertical">
+
+        <Space
+                android:id="@+id/spacer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="parent"
+                android:layout_marginBottom="8dp"/>
+
+        <ProgressBar
+                android:id="@+id/progressBar"
+                style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-8dp"
+                android:indeterminate="true"
+                app:layout_constraintTop_toTopOf="@id/spacer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/txTitle"/>
 
         <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
@@ -20,13 +38,14 @@
                 app:cardElevation="2dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:id="@+id/cardView">
+                android:id="@+id/cardView"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp">
 
             <ImageView
                     android:id="@+id/ivPoster"
                     android:layout_width="200dp"
                     android:layout_height="300dp"
-                    android:src="@drawable/poster_dragon"
                     android:contentDescription="@string/poster"/>
         </androidx.cardview.widget.CardView>
 
@@ -34,32 +53,29 @@
                 android:id="@+id/txTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="How To Train Your Dragon: The Hidden World"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:justificationMode="inter_word"
                 tools:targetApi="o"
-                tools:ignore="HardcodedText"
                 app:layout_constraintStart_toEndOf="@+id/cardView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cardView"
                 app:layout_constrainedWidth="true"
-                android:layout_marginStart="10dp"/>
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"/>
 
         <TextView
                 android:id="@+id/txGenre"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Action, Adventure, Science Fiction"
                 android:drawableStart="@drawable/ic_genre"
                 android:drawablePadding="5dp"
                 android:drawableTint="@color/colorPrimaryDark"
                 android:layout_marginTop="5dp"
-                tools:ignore="HardcodedText"
                 tools:targetApi="m"
                 android:gravity="center_vertical"
                 app:layout_constraintStart_toEndOf="@+id/cardView"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/txTitle"
                 app:layout_constraintTop_toBottomOf="@id/txTitle"
                 android:layout_marginStart="10dp"/>
 
@@ -67,16 +83,14 @@
                 android:id="@+id/txRelease"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="12 Desember 2018"
                 android:drawableStart="@drawable/ic_date"
                 android:drawablePadding="5dp"
                 android:layout_marginTop="5dp"
                 android:drawableTint="@color/colorPrimaryDark"
-                tools:ignore="HardcodedText"
                 tools:targetApi="m"
                 android:gravity="center_vertical"
                 app:layout_constraintTop_toBottomOf="@id/txGenre"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/txTitle"
                 app:layout_constraintStart_toEndOf="@id/cardView"
                 android:layout_marginStart="10dp"/>
 
@@ -84,16 +98,14 @@
                 android:id="@+id/txDuration"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="2 Jam 15 Menit"
                 android:drawableStart="@drawable/ic_duration"
                 android:drawablePadding="5dp"
                 android:drawableTint="@color/colorPrimaryDark"
                 android:layout_marginTop="5dp"
-                tools:ignore="HardcodedText"
                 tools:targetApi="m"
                 android:gravity="center_vertical"
                 app:layout_constraintStart_toEndOf="@id/cardView"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/txTitle"
                 app:layout_constraintTop_toBottomOf="@id/txRelease"
                 android:layout_marginStart="10dp"/>
 
@@ -101,16 +113,14 @@
                 android:id="@+id/txBudget"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="$160,000,000.00"
                 android:drawableStart="@drawable/ic_outcome"
                 android:drawablePadding="6dp"
                 android:layout_marginTop="5dp"
                 android:drawableTint="@color/colorPrimaryDark"
-                tools:ignore="HardcodedText"
                 tools:targetApi="m"
                 android:gravity="center_vertical"
                 app:layout_constraintTop_toBottomOf="@id/txDuration"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/txTitle"
                 app:layout_constraintStart_toEndOf="@id/cardView"
                 android:layout_marginStart="10dp"/>
 
@@ -118,16 +128,14 @@
                 android:id="@+id/txRevenue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="$1,143,689,193.00"
                 android:drawableStart="@drawable/ic_income"
                 android:drawablePadding="6dp"
                 android:drawableTint="@color/colorPrimaryDark"
                 android:layout_marginTop="5dp"
-                tools:ignore="HardcodedText"
                 tools:targetApi="m"
                 android:gravity="center_vertical"
                 app:layout_constraintStart_toEndOf="@id/cardView"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/txTitle"
                 app:layout_constraintTop_toBottomOf="@id/txBudget"
                 android:layout_marginStart="10dp"/>
 
@@ -167,20 +175,21 @@
                 android:layout_marginTop="15dp"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/cardView"
                 app:layout_constraintTop_toBottomOf="@id/cardView"/>
 
         <TextView
                 android:id="@+id/txOverview"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Earth is peaceful following the Tournament of Power. Realizing that the universes still hold many more strong people yet to see, Goku spends all his days training to reach even greater heights. Then one day, Goku and Vegeta are faced by a Saiyan called \'Broly\' who they\'ve never seen before. The Saiyans were supposed to have been almost completely wiped out in the destruction of Planet Vegeta, so what\'s this one doing on Earth? This encounter between the three Saiyans who have followed completely different destinies turns into a stupendous battle, with even Frieza (back from Hell) getting caught up in the mix."
                 android:textSize="16sp"
                 android:justificationMode="inter_word"
                 android:layout_marginTop="5dp"
-                tools:ignore="HardcodedText"
+                android:layout_marginBottom="20dp"
                 tools:targetApi="o"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txTitleOverview"/>
+                app:layout_constraintStart_toStartOf="@id/cardView"
+                app:layout_constraintEnd_toEndOf="@id/txTitle"
+                app:layout_constraintTop_toBottomOf="@id/txTitleOverview"
+                app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

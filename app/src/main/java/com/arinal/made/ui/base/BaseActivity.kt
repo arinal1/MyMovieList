@@ -15,11 +15,13 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         preference = getSharedPreferences("locale", Context.MODE_PRIVATE)
     }
 
     internal fun hideBackButton() {
+        supportActionBar?.setDisplayShowHomeEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
@@ -38,10 +40,10 @@ abstract class BaseActivity : AppCompatActivity() {
         editor?.putString("lang", locale.language)?.apply()
     }
 
-    internal fun getLang():String = preference.getString("lang", "in")!!
+    internal fun getLang():String = preference.getString("lang", "id")?:"id"
 
     override fun onResume() {
-        setLocale(Locale(preference.getString("lang", "in")!!))
+        setLocale(Locale(getLang()))
         super.onResume()
     }
 

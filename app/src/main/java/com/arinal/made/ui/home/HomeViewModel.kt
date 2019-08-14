@@ -4,13 +4,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.arinal.made.BuildConfig.TMDB_API_KEY
 import com.arinal.made.data.model.ExtraDetailModel
 import com.arinal.made.data.model.MovieModel
 import com.arinal.made.data.model.TvModel
 import com.arinal.made.data.network.TmdbEndpoint
 import com.arinal.made.ui.home.adapter.MoviesAdapter
 import com.arinal.made.ui.home.adapter.TvShowsAdapter
-import com.arinal.made.utils.Constants.tmdbApiKey
 import com.arinal.made.utils.scheduler.SchedulerProvider
 import com.arinal.made.utils.extension.setSchedule
 import io.reactivex.disposables.CompositeDisposable
@@ -34,8 +34,8 @@ class HomeViewModel(
         shouldLoad = if (!shouldLoad) (listMovie.value != null || listTv.value != null) && !onInit else shouldLoad
         if (shouldLoad) {
             val lang = if (language == "in") "id" else language
-            val api = if (tabPosition == 0) endpoint.getMovies(tmdbApiKey, lang, page)
-            else endpoint.getTvShows(tmdbApiKey, lang, page)
+            val api = if (tabPosition == 0) endpoint.getMovies(TMDB_API_KEY, lang, page)
+            else endpoint.getTvShows(TMDB_API_KEY, lang, page)
             compositeDisposable.add(
                 api.setSchedule(scheduler).subscribe({
                     if (it is TvModel) {

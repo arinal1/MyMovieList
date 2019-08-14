@@ -17,7 +17,7 @@ import com.bumptech.glide.Glide
 class MoviesAdapter(
     private val context: Context,
     private val data: List<MovieModel.Result>?,
-    private val onClick: (String, Int) -> Unit
+    private val onClick: (Int) -> Unit
 ) : Adapter<ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -42,7 +42,7 @@ class MoviesAdapter(
 
     inner class ItemViewHolder(view: View) : ViewHolder(view) {
         init {
-            super.itemView.setOnClickListener { onClick("movie", data?.get(adapterPosition)?.id ?: 0) }
+            super.itemView.setOnClickListener { onClick(data?.get(adapterPosition)?.id ?: 0) }
         }
 
         val poster: ImageView = view.findViewById(R.id.ivPoster)

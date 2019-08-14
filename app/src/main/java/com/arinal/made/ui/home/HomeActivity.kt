@@ -47,7 +47,7 @@ class HomeActivity : BaseActivity() {
             }
         }
         viewModel = ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
-        viewModel.setOnclick { category, id -> startActivity<DetailActivity>("id" to id, "category" to category) }
+        viewModel.setOnclick { data -> startActivity<DetailActivity>("data" to data) }
         viewModel.setLanguage { getLang() }
     }
 

@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.arinal.made.R
 import com.arinal.made.data.model.DetailModel
+import com.arinal.made.data.model.ExtraDetailModel
 import com.arinal.made.data.network.ApiClient
 import com.arinal.made.ui.base.BaseActivity
 import com.arinal.made.utils.Constants
@@ -21,8 +22,8 @@ import kotlin.math.roundToInt
 
 class DetailActivity : BaseActivity() {
 
+    private lateinit var data: ExtraDetailModel
     private lateinit var viewModel: DetailViewModel
-    private var category = ""
     private var compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,27 +34,26 @@ class DetailActivity : BaseActivity() {
     }
 
     private fun initData() {
-        category = intent.getStringExtra("category") ?: "movie"
-        val id = intent.getIntExtra("id", 0)
+        data = intent.getParcelableExtra("data")
         val factory = object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
-                return DetailViewModel(category, ApiClient.getTmdb(), SchedulerProviderImpl(), compositeDisposable) as T
+                return DetailViewModel(data.categoryId, ApiClient.getTmdb(), SchedulerProviderImpl(), compositeDisposable) as T
             }
         }
         viewModel = ViewModelProviders.of(this, factory).get(DetailViewModel::class.java)
-        viewModel.getData(id, getLang()) { onError(it) }.observe(this, onGotData())
+        viewModel.getData(data.dataId, getLang()) { onError(it) }.observe(this, onGotData())
     }
 
     private fun onGotData(): Observer<DetailModel> = Observer {
         progressBar.gone()
         Glide.with(this).load(Constants.tmdbImgUrl + it.poster_path).into(ivPoster)
-        txTitle.text = it.getTitle(category)
+        txTitle.text = it.getTitle(data.categoryId)
         txGenre.text = it.getGenre()
-        txRelease.text = it.getRelease(category)
-        txDuration.text = it.getDuration(category, getString(R.string.hours), getString(R.string.minutes))
-        if (category == "tv") txBudget.visibility = View.GONE else txBudget.text = it.getBudget()
-        if (category == "tv") txRevenue.visibility = View.GONE else txRevenue.text = it.getRevenue()
+        txRelease.text = it.getRelease(data.categoryId)
+        txDuration.text = it.getDuration(data.categoryId, getString(R.string.hours), getString(R.string.minutes))
+        if (data.categoryId == 0) txBudget.text = it.getBudget() else txBudget.visibility = View.GONE
+        if (data.categoryId == 0) txRevenue.text = it.getRevenue() else txRevenue.visibility = View.GONE
         txOverview.text = it.overview
         circleBar.progress = (it.vote_average * 10).roundToInt()
     }

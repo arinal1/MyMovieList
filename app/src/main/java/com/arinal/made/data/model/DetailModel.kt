@@ -24,7 +24,7 @@ data class DetailModel(
         val name: String
     )
 
-    fun getTitle(category: String): String = if (category == "tv") original_name else original_title
+    fun getTitle(categoryId: Int): String = if (categoryId == 0) original_title else original_name
     fun getBudget(): String = "$${DecimalFormat("#,###").format(budget)}"
     fun getRevenue(): String = "$${DecimalFormat("#,###").format(revenue)}"
     fun getGenre(): String {
@@ -34,14 +34,14 @@ data class DetailModel(
     }
 
     @SuppressLint("SimpleDateFormat")
-    fun getRelease(category: String): String {
-        val date = if (category == "tv") first_air_date else release_date
+    fun getRelease(categoryId: Int): String {
+        val date = if (categoryId == 0) release_date else first_air_date
         val convert = SimpleDateFormat("yyyy-MM-dd")
         return SimpleDateFormat("dd MMMM yyyy").format(convert.parse(date)?.time)
     }
 
-    fun getDuration(category: String, txHour: String, txMinute: String): String {
-        val duration = if (category != "tv") runtime else {
+    fun getDuration(categoryId: Int, txHour: String, txMinute: String): String {
+        val duration = if (categoryId == 0) runtime else {
             var total = 0
             for (eps in episode_run_time)
                 total += eps

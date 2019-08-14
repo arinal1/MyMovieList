@@ -8,22 +8,8 @@ import com.arinal.made.R
 import com.arinal.made.ui.home.HomeFragment
 
 class HomePagerAdapter(private val context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
-
-    override fun getItem(position: Int): Fragment {
-        return when (position) {
-            0 -> HomeFragment.newInstance("movie")
-            else -> HomeFragment.newInstance("tv")
-        }
-    }
-
-    override fun getPageTitle(position: Int): CharSequence? = context.resources.getString(TAB_TITLES[position])
-
+    private val tabTitles = arrayOf(R.string.title_tab_home_1, R.string.title_tab_home_2)
+    override fun getItem(position: Int): Fragment = HomeFragment.newInstance(position)
+    override fun getPageTitle(position: Int): CharSequence? = context.resources.getString(tabTitles[position])
     override fun getCount(): Int = 2
-
-    companion object {
-        private val TAB_TITLES = arrayOf(
-            R.string.tab_home_1,
-            R.string.tab_home_2
-        )
-    }
 }

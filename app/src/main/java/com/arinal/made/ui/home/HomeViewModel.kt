@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.arinal.made.data.model.ExtraDetailModel
 import com.arinal.made.data.model.MovieModel
 import com.arinal.made.data.model.TvModel
 import com.arinal.made.data.network.TmdbEndpoint
@@ -21,20 +22,20 @@ class HomeViewModel(
 
     private val listMovie = MutableLiveData<MutableList<MovieModel.Result>>()
     private val listTv = MutableLiveData<MutableList<TvModel.Result>>()
-    private var onClick: (String, Int) -> Unit = { _, _ -> }
+    private var onClick: (ExtraDetailModel) -> Unit = { _ -> }
     private var language: () -> String = { "" }
 
     fun getListMovie(): MutableLiveData<MutableList<MovieModel.Result>> = listMovie
 
     fun getListTv(): MutableLiveData<MutableList<TvModel.Result>> = listTv
 
-    fun getData(onInit: Boolean, inTab: String, language: String, page: Int, onError: (Throwable) -> Unit) {
+    fun getData(onInit: Boolean, tabPosition: Int, language: String, page: Int, onError: (Throwable) -> Unit) {
         var shouldLoad = (listMovie.value == null || listTv.value == null) && onInit
         shouldLoad = if (!shouldLoad) (listMovie.value != null || listTv.value != null) && !onInit else shouldLoad
         if (shouldLoad) {
             val lang = if (language == "in") "id" else language
-            val api = if (inTab == "tv") endpoint.getTvShows(tmdbApiKey, lang, page)
-            else endpoint.getMovies(tmdbApiKey, lang, page)
+            val api = if (tabPosition == 0) endpoint.getMovies(tmdbApiKey, lang, page)
+            else endpoint.getTvShows(tmdbApiKey, lang, page)
             compositeDisposable.add(
                 api.setSchedule(scheduler).subscribe({
                     if (it is TvModel) {
@@ -42,7 +43,7 @@ class HomeViewModel(
                         else listTv.postValue(listTv.value!!.apply { addAll(it.results) })
                     } else if (it is MovieModel) {
                         if (listMovie.value == null) listMovie.value = it.results.toMutableList()
-                        else listMovie.postValue(listMovie.value!!.apply { addAll(it.results)})
+                        else listMovie.postValue(listMovie.value!!.apply { addAll(it.results) })
                     }
                 }, {
                     onError(it)
@@ -51,10 +52,10 @@ class HomeViewModel(
         }
     }
 
-    fun getAdapter(inTab: String, movie: MoviesAdapter, tv: TvShowsAdapter): Adapter<out ViewHolder> =
-        if (inTab == "tv") tv else movie
+    fun getAdapter(tabPosition: Int, moviesAdapter: MoviesAdapter, tvAdapter: TvShowsAdapter)
+            : Adapter<out ViewHolder> = if (tabPosition == 0) moviesAdapter else tvAdapter
 
-    fun setOnclick(onClick: (String, Int) -> Unit) {
+    fun setOnclick(onClick: (ExtraDetailModel) -> Unit) {
         this.onClick = onClick
     }
 
@@ -62,6 +63,6 @@ class HomeViewModel(
         this.language = language
     }
 
-    fun goToDetail(category: String, id: Int) = onClick(category, id)
+    fun goToDetail(categoryId: Int, dataId: Int) = onClick(ExtraDetailModel(categoryId, dataId))
     fun getLang(): String = language()
 }

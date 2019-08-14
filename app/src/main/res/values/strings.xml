@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Reference See</string>
     <string name="poster">Poster</string>
-    <string name="tab_home_1">Movies</string>
-    <string name="tab_home_2">Tv Shows</string>
+    <string name="title_tab_home_1">Film</string>
+    <string name="title_tab_home_2">Acara TV</string>
     <string name="title_setting_language">Pengaturan Bahasa</string>
     <string name="title_detail">Detail Film</string>
     <string name="subtitle_home">Dicoding submission 3</string>

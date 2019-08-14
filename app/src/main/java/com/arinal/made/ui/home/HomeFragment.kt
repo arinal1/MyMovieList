@@ -24,18 +24,18 @@ class HomeFragment : Fragment() {
     private lateinit var moviesAdapter: MoviesAdapter
     private lateinit var tvShowsAdapter: TvShowsAdapter
     private lateinit var viewModel: HomeViewModel
-    private var inTab = ""
+    private var tabPosition = 0
     private var movieList: MutableList<MovieModel.Result> = mutableListOf()
     private var page = 1
     private var tvList: MutableList<TvModel.Result> = mutableListOf()
 
     companion object {
-        private const val INTAB = "intab"
+        private const val TAB_POSITION = "position"
         @JvmStatic
-        fun newInstance(category: String): HomeFragment {
+        fun newInstance(tabPosition: Int): HomeFragment {
             return HomeFragment().apply {
                 arguments = Bundle().apply {
-                    putString(INTAB, category)
+                    putInt(TAB_POSITION, tabPosition)
                 }
             }
         }
@@ -71,16 +71,19 @@ class HomeFragment : Fragment() {
     }
 
     private fun initData() {
-        moviesAdapter = MoviesAdapter(requireContext(), movieList) { type, id -> viewModel.goToDetail(type, id) }
-        tvShowsAdapter = TvShowsAdapter(requireContext(), tvList) { type, id -> viewModel.goToDetail(type, id) }
-        inTab = arguments?.getString(INTAB) ?: "movie"
-        activity?.let { viewModel = ViewModelProviders.of(it).get(HomeViewModel::class.java) }
+        tabPosition = arguments?.getInt(TAB_POSITION, 0) ?: 0
+        activity?.let {
+            viewModel = ViewModelProviders.of(it).get(HomeViewModel::class.java)
+            moviesAdapter = MoviesAdapter(it, movieList) { dataId -> viewModel.goToDetail(tabPosition, dataId) }
+            tvShowsAdapter = TvShowsAdapter(it, tvList) { dataId -> viewModel.goToDetail(tabPosition, dataId) }
+        }
         viewModel.getListMovie().observe(this, onGotMovie())
         viewModel.getListTv().observe(this, onGotTv())
-        recyclerView.adapter = viewModel.getAdapter(inTab, moviesAdapter, tvShowsAdapter)
+        recyclerView.adapter = viewModel.getAdapter(tabPosition, moviesAdapter, tvShowsAdapter)
     }
 
-    private fun getData(onInit: Boolean) = viewModel.getData(onInit, inTab, viewModel.getLang(), page) { onError(it) }
+    private fun getData(onInit: Boolean) =
+        viewModel.getData(onInit, tabPosition, viewModel.getLang(), page) { onError(it) }
 
     private fun onGotMovie(): Observer<MutableList<MovieModel.Result>> = Observer {
         progressBar.gone()

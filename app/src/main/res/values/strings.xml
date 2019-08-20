@@ -5,9 +5,9 @@
     <string name="title_tab_home_2">Acara TV</string>
     <string name="title_setting_language">Pengaturan Bahasa</string>
     <string name="title_detail">Detail Film</string>
-    <string name="subtitle_home">Dicoding submission 3</string>
+    <string name="subtitle_home">Dicoding submission 4</string>
     <string name="overview">Sinopsis</string>
-    <string name="user_score">Skor\nPengguna</string>
+    <string name="user_score">Skor Pengguna</string>
     <string name="setting">Pengaturan</string>
     <string name="bahasa_indonesia">Bahasa Indonesia</string>
     <string name="english">English</string>
@@ -15,4 +15,8 @@
     <string name="msg_success_set_language">Berhasil mengganti bahasa</string>
     <string name="hours">Jam</string>
     <string name="minutes">Menit</string>
+    <string name="genre">Kategori :&#160;</string>
+    <string name="budget">Anggaran :&#160;</string>
+    <string name="revenue">pendapatan :&#160;</string>
+    <string name="favorite">Favorit</string>
 </resources>

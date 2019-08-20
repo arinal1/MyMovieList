@@ -51,6 +51,10 @@ class HomeActivity : BaseActivity() {
         viewModel.setLanguage { getLang() }
     }
 
+    private fun onClickFavorite(){
+
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         if (menu != null) menuInflater.inflate(R.menu.menu_home, menu)
         return true
@@ -58,6 +62,7 @@ class HomeActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.setting) startActivity<SettingLanguageActivity>()
+        if (item.itemId == R.id.favorite) onClickFavorite()
         return super.onOptionsItemSelected(item)
     }
 

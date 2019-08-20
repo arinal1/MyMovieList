@@ -5,14 +5,14 @@ import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
 data class DetailModel(
-    val budget: Int,
+    val budget: Float,
     val genres: List<Genre>,
     val id: Int,
     val original_title: String,
     val overview: String,
     val poster_path: String,
     val release_date: String,
-    val revenue: Int,
+    val revenue: Float,
     val runtime: Int,
     val vote_average: Double,
     val episode_run_time: List<Int>,

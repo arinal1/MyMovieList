@@ -10,7 +10,6 @@ import android.os.Build.VERSION_CODES.Q
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.lifecycle.Observer
@@ -103,8 +102,15 @@ class DetailActivity : BaseActivity() {
         txGenre.text = it.getGenre()
         txRelease.text = it.getRelease(data.categoryId)
         txDuration.text = it.getDuration(data.categoryId, getString(R.string.hours), getString(R.string.minutes))
-        if (data.categoryId == 0) txBudget.text = it.getBudget() else txBudget.visibility = View.GONE
-        if (data.categoryId == 0) txRevenue.text = it.getRevenue() else txRevenue.visibility = View.GONE
+        if (data.categoryId == 0){
+            txBudget.text = it.getBudget()
+            txRevenue.text = it.getRevenue()
+        } else {
+            txBudget.gone()
+            txRevenue.gone()
+            budget.gone()
+            revenue.gone()
+        }
         txOverview.text = it.overview
         ratingBar.rating = (it.vote_average * 5 / 10).toFloat()
         val rating = "${it.vote_average}/10 ${getString(R.string.user_score)}"

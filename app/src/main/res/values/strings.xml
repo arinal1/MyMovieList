@@ -19,4 +19,5 @@
     <string name="budget">Anggaran :&#160;</string>
     <string name="revenue">pendapatan :&#160;</string>
     <string name="favorite">Favorit</string>
+    <string name="empty">Data kosong</string>
 </resources>

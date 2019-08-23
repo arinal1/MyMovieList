@@ -9,40 +9,38 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.arinal.made.R
-import com.arinal.made.data.model.TvModel
-import com.arinal.made.ui.home.adapter.TvShowsAdapter.ItemViewHolder
+import com.arinal.made.data.model.FilmModel
+import com.arinal.made.ui.home.adapter.FilmAdapter.ItemViewHolder
 import com.arinal.made.utils.Constants.tmdbImgUrl
 import com.bumptech.glide.Glide
 
-class TvShowsAdapter(
+class FilmAdapter(
     private val context: Context,
-    private val data: List<TvModel.Result>?,
-    private val onClick: (Int) -> Unit
+    private val data: List<FilmModel>,
+    private val onClick: (FilmModel, Int) -> Unit
 ) : Adapter<ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder(LayoutInflater.from(context).inflate(R.layout.item_main, parent, false))
     }
 
-    override fun getItemCount(): Int = data?.size ?: 0
+    override fun getItemCount(): Int = data.size
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        if (data != null) {
-            Glide.with(context).load(tmdbImgUrl + data[position].poster_path).into(holder.poster)
-            holder.judul.text = data[position].original_name
-            holder.rilis.text = data[position].getDate()
-            holder.genre.text = data[position].getGenre()
-            if (position == data.size - 1) holder.separator.visibility = View.GONE
-            holder.txSinopsis.text = if (data[position].overview.length >= 136) {
-                val sinopsis = data[position].overview.substring(0, 115)
-                "${sinopsis.substring(0, sinopsis.lastIndexOf(" "))}..."
-            } else data[position].overview
-        }
+        Glide.with(context).load(tmdbImgUrl + data[position].poster).into(holder.poster)
+        holder.judul.text = data[position].title
+        holder.rilis.text = data[position].getDate()
+        holder.genre.text = data[position].getGenre()
+        if (position == data.size - 1) holder.separator.visibility = View.GONE
+        holder.txSinopsis.text = if (data[position].overview.length >= 136) {
+            val sinopsis = data[position].overview.substring(0, 115)
+            "${sinopsis.substring(0, sinopsis.lastIndexOf(" "))}..."
+        } else data[position].overview
     }
 
     inner class ItemViewHolder(view: View) : ViewHolder(view) {
         init {
-            super.itemView.setOnClickListener { onClick(data?.get(adapterPosition)?.id ?: 0) }
+            super.itemView.setOnClickListener { onClick(data[adapterPosition], adapterPosition) }
         }
 
         val poster: ImageView = view.findViewById(R.id.ivPoster)

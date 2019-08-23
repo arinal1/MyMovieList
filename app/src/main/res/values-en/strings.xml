@@ -19,4 +19,5 @@
     <string name="budget">Budget :&#160;</string>
     <string name="revenue">Revenue :&#160;</string>
     <string name="favorite">Favorite</string>
+    <string name="empty">Data is empty</string>
 </resources>

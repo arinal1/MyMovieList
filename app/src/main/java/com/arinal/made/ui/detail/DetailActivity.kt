@@ -1,5 +1,6 @@
 package com.arinal.made.ui.detail
 
+import android.content.Intent
 import android.graphics.BlendMode
 import android.graphics.BlendModeColorFilter
 import android.graphics.Color
@@ -17,8 +18,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.arinal.made.R
-import com.arinal.made.data.model.DetailModel
+import com.arinal.made.data.local.TmdbDatabase
 import com.arinal.made.data.model.ExtraDetailModel
+import com.arinal.made.data.model.FilmDetailModel
+import com.arinal.made.data.model.FilmModel
 import com.arinal.made.data.network.ApiClient
 import com.arinal.made.ui.base.BaseActivity
 import com.arinal.made.utils.Constants
@@ -31,11 +34,14 @@ import kotlinx.android.synthetic.main.activity_detail.*
 import org.jetbrains.anko.toast
 
 class DetailActivity : BaseActivity() {
-
-    private lateinit var data: ExtraDetailModel
+    private lateinit var dataExtra: ExtraDetailModel
+    private lateinit var dataFilm: FilmModel
+    private lateinit var dataDetail: FilmDetailModel
     private lateinit var viewModel: DetailViewModel
     private var compositeDisposable = CompositeDisposable()
-    private var drawableFav: Drawable? = null
+    private var dwFavorite: Drawable? = null
+    private var dwFavorited: Drawable? = null
+    private var favoriteMenu: MenuItem? = null
     private var filmTitle = ""
     private var posterHeight = 0
 
@@ -56,13 +62,18 @@ class DetailActivity : BaseActivity() {
             appbar.post {
                 val isOffset = offset < (posterHeight - 300) / -1
                 collapseToolbar.title = if (isOffset) filmTitle else ""
-                val typedArray = theme.obtainStyledAttributes(R.style.AppTheme, intArrayOf(R.attr.homeAsUpIndicator))
+                val typedArray = theme.obtainStyledAttributes(
+                    R.style.AppTheme,
+                    intArrayOf(R.attr.homeAsUpIndicator)
+                )
                 val attributeResourceId = typedArray.getResourceId(0, 0)
-                val upArrow = ContextCompat.getDrawable(this@DetailActivity, attributeResourceId)
+                val upArrow = ContextCompat.getDrawable(baseContext, attributeResourceId)
                 typedArray.recycle()
                 val color = Color.parseColor(if (isOffset) "#000000" else "#FFFFFF")
-                drawableFav?.setTint(color)
-                if (SDK_INT >= Q) upArrow?.colorFilter = BlendModeColorFilter(color, BlendMode.SRC_ATOP)
+                dwFavorite?.setTint(color)
+                dwFavorited?.setTint(color)
+                if (SDK_INT >= Q) upArrow?.colorFilter =
+                    BlendModeColorFilter(color, BlendMode.SRC_ATOP)
                 else {
                     @Suppress("DEPRECATION")
                     upArrow?.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
@@ -74,35 +85,42 @@ class DetailActivity : BaseActivity() {
     }
 
     private fun initData() {
-        data = intent.getParcelableExtra("data")
+        dataExtra = intent.getParcelableExtra("data")
+        dataFilm = dataExtra.filmModel
         val factory = object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
                 return DetailViewModel(
-                    data.categoryId,
+                    dataFilm.category,
                     ApiClient.getTmdb(),
-                    SchedulerProviderImpl(),
-                    compositeDisposable
-                ) as T
+                    TmdbDatabase.getInstance(applicationContext).tmdbDao(),
+                    compositeDisposable,
+                    SchedulerProviderImpl()
+                ) { onFailed(it) } as T
             }
         }
         viewModel = ViewModelProviders.of(this, factory).get(DetailViewModel::class.java)
-        viewModel.getData(data.dataId, getLang()) { onError(it) }.observe(this, onGotData())
+        viewModel.getDetailData().observe(this, onGotData())
+        viewModel.getIsFavorited().observe(this, onFavoriteSet())
+        viewModel.getData(dataFilm.id, getLang())
     }
 
-    private fun onGotData(): Observer<DetailModel> = Observer {
+    private fun onGotData(): Observer<FilmDetailModel> = Observer {
+        dataDetail = it
         progressBar.gone()
-        Glide.with(this).load(Constants.tmdbImgUrl + it.poster_path).into(ivPoster).getSize { _, height ->
-            posterHeight = height - 200
-            ivPoster.layoutParams.height = posterHeight
-            ivPoster.requestLayout()
-        }
-        filmTitle = it.getTitle(data.categoryId)
+        Glide.with(this).load(Constants.tmdbImgUrl + it.poster).into(ivPoster)
+            .getSize { _, height ->
+                posterHeight = height - 200
+                ivPoster.layoutParams.height = posterHeight
+                ivPoster.requestLayout()
+            }
+        it.category = dataFilm.category
+        filmTitle = it.title
         txTitle.text = filmTitle
         txGenre.text = it.getGenre()
-        txRelease.text = it.getRelease(data.categoryId)
-        txDuration.text = it.getDuration(data.categoryId, getString(R.string.hours), getString(R.string.minutes))
-        if (data.categoryId == 0){
+        txRelease.text = it.getRelease()
+        txDuration.text = it.getDuration(getString(R.string.hours), getString(R.string.minutes))
+        if (dataFilm.category == 0) {
             txBudget.text = it.getBudget()
             txRevenue.text = it.getRevenue()
         } else {
@@ -112,23 +130,28 @@ class DetailActivity : BaseActivity() {
             revenue.gone()
         }
         txOverview.text = it.overview
-        ratingBar.rating = (it.vote_average * 5 / 10).toFloat()
-        val rating = "${it.vote_average}/10 ${getString(R.string.user_score)}"
+        ratingBar.rating = (it.voteAverage * 5 / 10).toFloat()
+        val rating = "${it.voteAverage}/10 ${getString(R.string.user_score)}"
         txRating.text = rating
     }
 
-    private fun onError(throwable: Throwable) {
+    private fun onFailed(throwable: Throwable) {
         progressBar.gone()
         toast(throwable.localizedMessage ?: "Error")
     }
 
-    private fun onClickFavorite(){
+    private fun onClickFavorite() = viewModel.onClickFavorite(dataFilm, dataDetail)
 
+    private fun onFavoriteSet(): Observer<Boolean> = Observer {
+        favoriteMenu?.icon = if (it) dwFavorited else dwFavorite
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         if (menu != null) menuInflater.inflate(R.menu.menu_detail, menu)
-        drawableFav = menu?.get(0)?.icon
+        dwFavorite = menu?.get(0)?.icon
+        dwFavorited = getDrawable(R.drawable.ic_favorited)
+        favoriteMenu = menu?.getItem(0)
+        viewModel.getFavorite(dataFilm.id)
         return true
     }
 
@@ -139,6 +162,16 @@ class DetailActivity : BaseActivity() {
 
     override fun finish() {
         compositeDisposable.dispose()
+        val category = dataFilm.category
+        val index = dataExtra.index
+        val intent = Intent()
+            .putExtra("category", category)
+            .putExtra("index", index)
+        if (dataExtra.isFromFavorite) {
+            if (viewModel.getIsFavorited().value == false) setResult(RESULT_OK, intent.putExtra("added", false))
+        } else {
+            if (viewModel.getIsFavorited().value == true) setResult(RESULT_OK, intent.putExtra("added", true))
+        }
         super.finish()
     }
 }

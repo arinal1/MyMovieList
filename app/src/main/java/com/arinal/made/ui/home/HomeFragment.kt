@@ -8,26 +8,27 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.arinal.made.R
-import com.arinal.made.data.model.MovieModel
-import com.arinal.made.data.model.TvModel
-import com.arinal.made.ui.home.adapter.MoviesAdapter
-import com.arinal.made.ui.home.adapter.TvShowsAdapter
+import com.arinal.made.data.model.FilmModel
+import com.arinal.made.ui.home.adapter.FilmAdapter
 import com.arinal.made.utils.EndlessScrollListener
 import com.arinal.made.utils.extension.gone
 import com.arinal.made.utils.extension.visible
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.support.v4.onRefresh
+import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.support.v4.toast
 
 class HomeFragment : Fragment() {
 
-    private lateinit var moviesAdapter: MoviesAdapter
-    private lateinit var tvShowsAdapter: TvShowsAdapter
+    private lateinit var favoriteAdapter: FilmAdapter
+    private lateinit var filmAdapter: FilmAdapter
+    private lateinit var scrollListener: EndlessScrollListener
     private lateinit var viewModel: HomeViewModel
-    private var tabPosition = 0
-    private var movieList: MutableList<MovieModel.Result> = mutableListOf()
-    private var page = 1
-    private var tvList: MutableList<TvModel.Result> = mutableListOf()
+    private var favoriteList: MutableList<FilmModel> = mutableListOf()
+    private var filmList: MutableList<FilmModel> = mutableListOf()
+    private var pageFavorite = 1
+    private var pageFilm = 1
+    private var tabPos = 0
 
     companion object {
         private const val TAB_POSITION = "position"
@@ -44,7 +45,6 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initData()
-        getData(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -52,54 +52,82 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        recyclerView.addOnScrollListener(object : EndlessScrollListener() {
-            override fun onLoadMore() {
-                page += 1
-                progressBar.visible()
-                getData(false)
-            }
-        })
+        setScrollListener()
         swipeRefresh.onRefresh {
-            viewModel.getListTv().value?.clear()
-            viewModel.getListMovie().value?.clear()
             swipeRefresh.isRefreshing = false
-            page = 1
-            getData(false)
+            if (isOnFavorite()) {
+                pageFavorite = 1
+                viewModel.getListFavorite(tabPos).value?.clear()
+            } else {
+                pageFilm = 1
+                viewModel.getListFilm(tabPos).value?.clear()
+            }
+            getData()
             progressBar.visible()
         }
         super.onViewCreated(view, savedInstanceState)
     }
 
+    private fun setScrollListener() {
+        if (::scrollListener.isInitialized) recyclerView.removeOnScrollListener(scrollListener)
+        scrollListener = object : EndlessScrollListener() {
+            override fun onLoadMore() {
+                if (isOnFavorite()) {
+                    if (favoriteList.isNotEmpty()) pageFavorite += 1
+                } else if (filmList.isNotEmpty()) pageFilm += 1
+                progressBar.visible()
+                getData()
+            }
+        }
+        recyclerView.addOnScrollListener(scrollListener)
+    }
+
     private fun initData() {
-        tabPosition = arguments?.getInt(TAB_POSITION, 0) ?: 0
+        tabPos = arguments?.getInt(TAB_POSITION, 0) ?: 0
         activity?.let {
             viewModel = ViewModelProviders.of(it).get(HomeViewModel::class.java)
-            moviesAdapter = MoviesAdapter(it, movieList) { dataId -> viewModel.goToDetail(tabPosition, dataId) }
-            tvShowsAdapter = TvShowsAdapter(it, tvList) { dataId -> viewModel.goToDetail(tabPosition, dataId) }
+            favoriteAdapter = FilmAdapter(it, favoriteList) { data, index -> viewModel.goToDetail(data.apply { category = tabPos }, index) }
+            filmAdapter = FilmAdapter(it, filmList) { data, index -> viewModel.goToDetail(data.apply { category = tabPos }, index) }
         }
-        viewModel.getListMovie().observe(this, onGotMovie())
-        viewModel.getListTv().observe(this, onGotTv())
-        recyclerView.adapter = viewModel.getAdapter(tabPosition, moviesAdapter, tvShowsAdapter)
+        viewModel.initData(tabPos, viewModel.getLang(), pageFilm) { onError(it) }
+        viewModel.getListFavorite(tabPos).observe(this, onGotFavorite())
+        viewModel.getListFilm(tabPos).observe(this, onGotFilm())
+        viewModel.getShowFavorite().observe(this, onShowFavorite())
     }
 
-    private fun getData(onInit: Boolean) =
-        viewModel.getData(onInit, tabPosition, viewModel.getLang(), page) { onError(it) }
+    private fun getData() = viewModel.getData(tabPos, viewModel.getLang(), if (isOnFavorite()) pageFavorite else pageFilm)
 
-    private fun onGotMovie(): Observer<MutableList<MovieModel.Result>> = Observer {
+    private fun isOnFavorite(): Boolean = viewModel.getShowFavorite().value == true
+
+    private fun onGotFavorite(): Observer<MutableList<FilmModel>> = Observer {
         progressBar.gone()
-        movieList.clear()
-        movieList.addAll(it)
-        moviesAdapter.notifyDataSetChanged()
+        favoriteList.clear()
+        favoriteList.addAll(it)
+        favoriteAdapter.notifyDataSetChanged()
+        if (it.isEmpty()) txEmpty.visible() else txEmpty.gone()
+        if (recyclerView.adapter == null) recyclerView.adapter = favoriteAdapter
     }
 
-    private fun onGotTv(): Observer<MutableList<TvModel.Result>> = Observer {
+    private fun onGotFilm(): Observer<MutableList<FilmModel>> = Observer {
         progressBar.gone()
-        tvList.clear()
-        tvList.addAll(it)
-        tvShowsAdapter.notifyDataSetChanged()
+        filmList.clear()
+        filmList.addAll(it)
+        filmAdapter.notifyDataSetChanged()
+        if (recyclerView.adapter == null) recyclerView.adapter = filmAdapter
     }
 
-    private fun onError(throwable: Throwable) {
+    private fun onShowFavorite(): Observer<Boolean> = Observer {
+        progressBar.visible()
+        recyclerView.adapter = if (it) favoriteAdapter else filmAdapter
+        if (it && favoriteList.isEmpty()) getData()
+        else {
+            progressBar.gone()
+            txEmpty.gone()
+        }
+        setScrollListener()
+    }
+
+    private fun onError(throwable: Throwable) = runOnUiThread {
         progressBar.gone()
         toast(throwable.localizedMessage ?: "")
     }

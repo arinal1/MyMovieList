@@ -1,8 +1,7 @@
 package com.arinal.made.data.network
 
-import com.arinal.made.data.model.DetailModel
-import com.arinal.made.data.model.MovieModel
-import com.arinal.made.data.model.TvModel
+import com.arinal.made.data.model.FilmDetailModel
+import com.arinal.made.data.model.FilmResponseModel
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -15,26 +14,26 @@ interface TmdbEndpoint {
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Single<MovieModel>
+    ): Single<FilmResponseModel>
 
     @GET("discover/tv")
     fun getTvShows(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Single<TvModel>
+    ): Single<FilmResponseModel>
 
     @GET("movie/{id}")
     fun getDetailMovie(
         @Path("id") id: Int,
         @Query("api_key") apiKey: String,
         @Query("language") language: String
-    ): Single<DetailModel>
+    ): Single<FilmDetailModel>
 
     @GET("tv/{id}")
     fun getDetailTvShow(
         @Path("id") id: Int,
         @Query("api_key") apiKey: String,
         @Query("language") language: String
-    ): Single<DetailModel>
+    ): Single<FilmDetailModel>
 }

@@ -57,9 +57,11 @@ class HomeActivity : BaseActivity() {
             }
         }
         viewModel = ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
-        viewModel.setOnclick { data -> startActivityForResult<DetailActivity>(1, "data" to data) }
+        viewModel.setOnclick { data -> startActivityForResult<DetailActivity>(getReqCode(data.isFromFavorite), "data" to data) }
         viewModel.setLanguage { getLang() }
     }
+
+    private fun getReqCode(fromFavorite: Boolean) = if (fromFavorite) 2 else 1
 
     private fun setIconColor() {
         favoriteIcon?.setTint(Color.parseColor("#000000"))
@@ -87,12 +89,13 @@ class HomeActivity : BaseActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == RESULT_OK && requestCode == 1 && data != null) {
+        if (resultCode == RESULT_OK && data != null) {
             val added = data.getBooleanExtra("added", false)
             val category = data.getIntExtra("category", 0)
             val index = data.getIntExtra("index", 0)
-            if (added) viewModel.addFavorite(category, index)
-            else viewModel.deleteFavorite(category, index)
+            val fromFavorite = requestCode == 2
+            if (added) viewModel.addFavoriteFromFilm(category, index)
+            else viewModel.deleteFavorite(category, index, fromFavorite)
         }
         super.onActivityResult(requestCode, resultCode, data)
     }

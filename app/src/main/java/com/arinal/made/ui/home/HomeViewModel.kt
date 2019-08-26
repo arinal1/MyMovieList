@@ -25,19 +25,15 @@ class HomeViewModel(
     private lateinit var repository: TmdbRepository
     private val movieCallback = object : FilmCallback {
         override fun onFailed(throwable: Throwable) = onError(throwable)
-        override fun onGotData(data: MutableList<FilmModel>) =
-            if (favoriteList[0].value == null) favoriteList[0].postValue(data)
-            else favoriteList[0].postValue(favoriteList[0].value?.apply { addAll(data) })
+        override fun onGotData(data: MutableList<FilmModel>) = addFavorite(0, data)
     }
     private val showFavorite = MutableLiveData<Boolean>()
     private val tvCallback = object : FilmCallback {
         override fun onFailed(throwable: Throwable) = onError(throwable)
-        override fun onGotData(data: MutableList<FilmModel>) =
-            if (favoriteList[1].value == null) favoriteList[1].postValue(data)
-            else favoriteList[1].postValue(favoriteList[1].value?.apply { addAll(data) })
+        override fun onGotData(data: MutableList<FilmModel>) = addFavorite(1, data)
     }
     private var language: () -> String = { "" }
-    private var onClick: (ExtraDetailModel) -> Unit = { _  -> }
+    private var onClick: (ExtraDetailModel) -> Unit = { _ -> }
 
     fun getListFavorite(category: Int): MutableLiveData<MutableList<FilmModel>> = favoriteList[category]
     fun getListFilm(category: Int): MutableLiveData<MutableList<FilmModel>> = filmList[category]
@@ -87,10 +83,20 @@ class HomeViewModel(
 
     fun goToDetail(extra: FilmModel, index: Int) = onClick(ExtraDetailModel(extra, index, showFavorite.value == true))
     fun getLang(): String = language()
-    fun addFavorite(category: Int, index: Int) = favoriteList[category].postValue(
-        favoriteList[category].value?.apply { add(filmList[category].value!![index]) }
-    )
-    fun deleteFavorite(category: Int, index: Int) = favoriteList[category].postValue(
-        favoriteList[category].value?.apply { removeAt(index) }
-    )
+
+    private fun addFavorite(category: Int, data: MutableList<FilmModel>) {
+        if (favoriteList[category].value == null) favoriteList[category].postValue(data)
+        else favoriteList[category].postValue(favoriteList[category].value?.apply { addAll(data) })
+    }
+
+    fun addFavoriteFromFilm(category: Int, index: Int) = addFavorite(category, mutableListOf(filmList[category].value!![index]))
+    fun deleteFavorite(category: Int, index: Int, fromFavorite: Boolean) {
+        val favIndex = if (fromFavorite) index else {
+            var idx = 0
+            for ((i, data) in favoriteList[category].value!!.withIndex())
+                if (data.id == filmList[category].value?.get(index)!!.id) idx = i
+            idx
+        }
+        favoriteList[category].postValue(favoriteList[category].value?.apply { removeAt(favIndex) })
+    }
 }

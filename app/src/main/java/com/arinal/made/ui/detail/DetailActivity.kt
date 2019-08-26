@@ -32,11 +32,13 @@ import com.google.android.material.appbar.AppBarLayout
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_detail.*
 import org.jetbrains.anko.toast
+import java.util.concurrent.atomic.AtomicBoolean
 
 class DetailActivity : BaseActivity() {
     private lateinit var dataExtra: ExtraDetailModel
     private lateinit var dataFilm: FilmModel
     private lateinit var dataDetail: FilmDetailModel
+    private lateinit var initFavoriteStatus: AtomicBoolean
     private lateinit var viewModel: DetailViewModel
     private var compositeDisposable = CompositeDisposable()
     private var dwFavorite: Drawable? = null
@@ -85,7 +87,7 @@ class DetailActivity : BaseActivity() {
     }
 
     private fun initData() {
-        dataExtra = intent.getParcelableExtra("data")
+        dataExtra = intent.getParcelableExtra("data")!!
         dataFilm = dataExtra.filmModel
         val factory = object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -140,10 +142,13 @@ class DetailActivity : BaseActivity() {
         toast(throwable.localizedMessage ?: "Error")
     }
 
-    private fun onClickFavorite() = viewModel.onClickFavorite(dataFilm, dataDetail)
+    private fun onClickFavorite() {
+        if (::dataDetail.isInitialized) viewModel.onClickFavorite(dataFilm, dataDetail)
+    }
 
     private fun onFavoriteSet(): Observer<Boolean> = Observer {
         favoriteMenu?.icon = if (it) dwFavorited else dwFavorite
+        if (!::initFavoriteStatus.isInitialized) initFavoriteStatus = AtomicBoolean(it)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -164,14 +169,11 @@ class DetailActivity : BaseActivity() {
         compositeDisposable.dispose()
         val category = dataFilm.category
         val index = dataExtra.index
+        val currentFavoriteStatus = viewModel.getIsFavorited().value == true
         val intent = Intent()
             .putExtra("category", category)
             .putExtra("index", index)
-        if (dataExtra.isFromFavorite) {
-            if (viewModel.getIsFavorited().value == false) setResult(RESULT_OK, intent.putExtra("added", false))
-        } else {
-            if (viewModel.getIsFavorited().value == true) setResult(RESULT_OK, intent.putExtra("added", true))
-        }
+        if (initFavoriteStatus.get() != currentFavoriteStatus) setResult(RESULT_OK, intent.putExtra("added", currentFavoriteStatus))
         super.finish()
     }
 }

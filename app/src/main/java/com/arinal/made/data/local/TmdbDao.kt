@@ -26,6 +26,9 @@ interface TmdbDao {
     @Query("SELECT `key` FROM film WHERE category = :category AND id = :id LIMIT 1")
     fun getFavoriteKey(category: Int, id: Int): Int
 
+    @Query("SELECT * FROM film WHERE category = :category AND (title LIKE :query OR overview LIKE :query) LIMIT :start , 10")
+    fun searchFavorites(category: Int, query: String, start: Int): List<FilmModel>
+
     @Insert
     fun insertFavorite(film: FilmModel)
 

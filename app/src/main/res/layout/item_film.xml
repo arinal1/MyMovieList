@@ -50,7 +50,7 @@
                     tools:ignore="HardcodedText"/>
 
             <TextView
-                    android:id="@+id/txTitleOverview"
+                    android:id="@+id/txOverview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Seasoned musician Jackson Maine discovers — and falls in love with — struggling artist Ally. She has just about given up on her dream to ..."

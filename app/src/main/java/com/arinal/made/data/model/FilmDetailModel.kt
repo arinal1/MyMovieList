@@ -24,7 +24,7 @@ data class FilmDetailModel(
     @ColumnInfo(name = "poster") val poster: String,
 
     @SerializedName(value = "release_date", alternate = ["first_air_date"])
-    @ColumnInfo(name = "releaseDate") val releaseDate: String,
+    @ColumnInfo(name = "releaseDate") val releaseDate: String?,
 
     @SerializedName("revenue")
     @ColumnInfo(name = "revenue") val revenues: Float,
@@ -58,8 +58,10 @@ data class FilmDetailModel(
     @SuppressLint("SimpleDateFormat")
     @Ignore
     fun getRelease(): String {
-        val convert = SimpleDateFormat("yyyy-MM-dd")
-        return SimpleDateFormat("dd MMMM yyyy").format(convert.parse(releaseDate)?.time)
+        return if (releaseDate.isNullOrEmpty()) "" else {
+            val convert = SimpleDateFormat("yyyy-MM-dd")
+            SimpleDateFormat("dd MMMM yyyy").format(convert.parse(releaseDate)?.time)
+        }
     }
 
     @Ignore

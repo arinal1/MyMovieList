@@ -5,7 +5,7 @@
     <string name="title_tab_home_2">Acara TV</string>
     <string name="title_setting_language">Pengaturan Bahasa</string>
     <string name="title_detail">Detail Film</string>
-    <string name="subtitle_home">Dicoding submission 4</string>
+    <string name="subtitle_home">Dicoding submission 5</string>
     <string name="overview">Sinopsis</string>
     <string name="user_score">Skor Pengguna</string>
     <string name="setting">Pengaturan</string>
@@ -20,4 +20,9 @@
     <string name="revenue">pendapatan :&#160;</string>
     <string name="favorite">Favorit</string>
     <string name="empty">Data kosong</string>
+    <string name="search_movie">Cari Film</string>
+    <string name="search_favorited_movie">Cari Film Favorit</string>
+    <string name="search_tv">Cari Acara TV</string>
+    <string name="search_favorited_tv">Cari Acara TV Favorit</string>
+    <string name="back">Kembali</string>
 </resources>

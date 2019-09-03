@@ -13,7 +13,7 @@ data class FilmModel(
     @PrimaryKey(autoGenerate = true) val key: Int,
 
     @SerializedName(value = "first_air_date", alternate = ["release_date"])
-    @ColumnInfo(name = "first_air_date") val release: String,
+    @ColumnInfo(name = "first_air_date") val release: String?,
 
     @SerializedName("genre_ids")
     val genres: List<Int>,
@@ -57,7 +57,9 @@ data class FilmModel(
     @SuppressLint("SimpleDateFormat")
     @Ignore
     fun getDate(): String {
-        val convert = SimpleDateFormat("yyyy-MM-dd")
-        return SimpleDateFormat("dd MMMM yyyy").format(convert.parse(release)?.time)
+        return if (release.isNullOrEmpty()) "" else {
+            val convert = SimpleDateFormat("yyyy-MM-dd")
+            SimpleDateFormat("dd MMMM yyyy").format(convert.parse(release)?.time)
+        }
     }
 }

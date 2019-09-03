@@ -5,7 +5,7 @@
     <string name="title_tab_home_2">Tv Shows</string>
     <string name="title_setting_language">Language Setting</string>
     <string name="title_detail">Film Detail</string>
-    <string name="subtitle_home">Dicoding submission 4</string>
+    <string name="subtitle_home">Dicoding submission 5</string>
     <string name="overview">Overview</string>
     <string name="user_score">User Score</string>
     <string name="setting">Setting</string>
@@ -20,4 +20,9 @@
     <string name="revenue">Revenue :&#160;</string>
     <string name="favorite">Favorite</string>
     <string name="empty">Data is empty</string>
+    <string name="search_movie">Search Movies</string>
+    <string name="search_favorited_movie">Search Favorited Movies</string>
+    <string name="search_tv">Search TV Shows</string>
+    <string name="search_favorited_tv">Search Favorited TV Shows</string>
+    <string name="back">Back</string>
 </resources>

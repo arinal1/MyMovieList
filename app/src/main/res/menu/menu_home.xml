@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:tools="http://schemas.android.com/tools"
-      xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/setting"
-          android:title="@string/setting"
-          android:icon="@drawable/ic_translate"
-          app:showAsAction="collapseActionView|ifRoom"/>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <item android:id="@+id/favorite"
-          android:title="@string/favorite"
-          android:icon="@drawable/ic_favorite"
-          app:showAsAction="collapseActionView|ifRoom"
-          android:iconTint="#000"
-          tools:targetApi="o"/>
+    <item
+            android:id="@+id/favorite"
+            android:icon="@drawable/ic_favorite"
+            android:iconTint="#000"
+            android:title="@string/favorite"
+            app:showAsAction="collapseActionView|ifRoom"
+            tools:targetApi="o" />
+
+    <item
+            android:id="@+id/setting"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/setting"
+            app:showAsAction="collapseActionView|ifRoom" />
 </menu>

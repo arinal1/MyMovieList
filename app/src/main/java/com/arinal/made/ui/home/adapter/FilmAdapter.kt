@@ -1,53 +1,66 @@
 package com.arinal.made.ui.home.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.arinal.made.R
 import com.arinal.made.data.model.FilmModel
 import com.arinal.made.ui.home.adapter.FilmAdapter.ItemViewHolder
 import com.arinal.made.utils.Constants.tmdbImgUrl
-import com.bumptech.glide.Glide
+import com.arinal.made.utils.extension.gone
+import com.bumptech.glide.RequestManager
+import kotlinx.android.synthetic.main.item_film.view.*
+import kotlinx.android.synthetic.main.item_film_header.view.*
+import org.jetbrains.anko.sdk27.coroutines.onClick
 
 class FilmAdapter(
-    private val context: Context,
-    private val data: List<FilmModel>,
-    private val onClick: (FilmModel, Int) -> Unit
+    private val dataList: List<FilmModel>,
+    private val glide: RequestManager,
+    private val layoutInflater: LayoutInflater,
+    private val onClick: (FilmModel, Int) -> Unit,
+    private val onSearch: () -> Unit,
+    private val txSearch: String
 ) : Adapter<ItemViewHolder>() {
 
+    override fun getItemCount(): Int = dataList.size + 1
+
+    override fun getItemViewType(position: Int): Int = if (position == 0) 0 else 1
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        return ItemViewHolder(LayoutInflater.from(context).inflate(R.layout.item_main, parent, false))
+        val layout = if (viewType == 0) R.layout.item_film_header else R.layout.item_film
+        return ItemViewHolder(layoutInflater.inflate(layout, parent, false))
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) = holder.bind(position)
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        Glide.with(context).load(tmdbImgUrl + data[position].poster).into(holder.poster)
-        holder.judul.text = data[position].title
-        holder.rilis.text = data[position].getDate()
-        holder.genre.text = data[position].getGenre()
-        if (position == data.size - 1) holder.separator.visibility = View.GONE
-        holder.txSinopsis.text = if (data[position].overview.length >= 136) {
-            val sinopsis = data[position].overview.substring(0, 115)
-            "${sinopsis.substring(0, sinopsis.lastIndexOf(" "))}..."
-        } else data[position].overview
-    }
+    inner class ItemViewHolder(private val view: View) : ViewHolder(view) {
 
-    inner class ItemViewHolder(view: View) : ViewHolder(view) {
-        init {
-            super.itemView.setOnClickListener { onClick(data[adapterPosition], adapterPosition) }
+        fun bind(position: Int) {
+            if (position == 0) {
+                if (txSearch == "") {
+                    view.gone()
+                    view.layoutParams = RecyclerView.LayoutParams(0, 15)
+                } else {
+                    view.onClick { onSearch() }
+                    view.txSearch.text = txSearch
+                }
+            } else {
+                val data = dataList[position - 1]
+                glide.load(tmdbImgUrl + data.poster).into(view.ivPoster)
+                view.txTitle.text = data.title
+                view.txRelease.text = data.getDate()
+                view.txGenre.text = data.getGenre()
+                if (position == dataList.size) view.separator.gone()
+                view.txOverview.text = if (data.overview.length < 136) data.overview
+                else {
+                    val sinopsis = data.overview.substring(0, 115)
+                    "${sinopsis.substring(0, sinopsis.lastIndexOf(" "))}..."
+                }
+                view.onClick { onClick(data, position - 1) }
+            }
         }
-
-        val poster: ImageView = view.findViewById(R.id.ivPoster)
-        val judul: TextView = view.findViewById(R.id.txTitle)
-        val rilis: TextView = view.findViewById(R.id.txRelease)
-        val genre: TextView = view.findViewById(R.id.txGenre)
-        val txSinopsis: TextView = view.findViewById(R.id.txTitleOverview)
-        val separator: View = view.findViewById(R.id.separator)
     }
 }

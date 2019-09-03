@@ -7,7 +7,7 @@ interface DataCallback {
     fun onFailed(throwable: Throwable)
 
     interface FilmCallback: DataCallback {
-        fun onGotData(data: MutableList<FilmModel>)
+        fun onGotData(category: Int, data: MutableList<FilmModel>)
     }
 
     interface FilmDetailCallback: DataCallback {

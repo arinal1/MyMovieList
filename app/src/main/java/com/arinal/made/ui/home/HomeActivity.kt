@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.view.get
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -18,10 +19,12 @@ import com.arinal.made.ui.detail.DetailActivity
 import com.arinal.made.ui.home.adapter.HomePagerAdapter
 import com.arinal.made.ui.settings.SettingLanguageActivity
 import com.arinal.made.utils.scheduler.SchedulerProviderImpl
+import com.google.android.material.tabs.TabLayout
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_home.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
+import java.util.*
 
 class HomeActivity : BaseActivity() {
 
@@ -42,8 +45,16 @@ class HomeActivity : BaseActivity() {
         hideBackButton()
         collapseToolbar.setExpandedTitleColor(Color.parseColor("#00FFFFFF"))
         collapseToolbar.setCollapsedTitleTextColor(Color.parseColor("#000000"))
-        viewPager.adapter = HomePagerAdapter(this, supportFragmentManager)
+        setLocale(Locale(getLang()))
+        val tabTitles = arrayOf(getString(R.string.title_tab_home_1), getString(R.string.title_tab_home_2))
+        val fragments = mutableListOf<Fragment>().apply { for (i in 0..1) add(HomeFragment.newInstance(i)) }
+        viewPager.adapter = HomePagerAdapter(fragments.toTypedArray(), tabTitles, supportFragmentManager)
         tabLayout.setupWithViewPager(viewPager)
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) = viewModel.scrollToTop(tab?.position ?: 0)
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabSelected(tab: TabLayout.Tab?) {}
+        })
     }
 
     private fun initData() {
@@ -77,7 +88,7 @@ class HomeActivity : BaseActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         if (menu != null) menuInflater.inflate(R.menu.menu_home, menu)
         favoritedIcon = getDrawable(R.drawable.ic_favorited)
-        favoriteIcon = menu?.get(1)?.icon
+        favoriteIcon = menu?.get(0)?.icon
         setIconColor()
         return true
     }

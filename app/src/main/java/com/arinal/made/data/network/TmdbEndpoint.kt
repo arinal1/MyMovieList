@@ -36,4 +36,21 @@ interface TmdbEndpoint {
         @Query("api_key") apiKey: String,
         @Query("language") language: String
     ): Single<FilmDetailModel>
+
+    @GET("search/movie")
+    fun searchMovies(
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+        @Query("query") query: String,
+        @Query("page") page: Int
+    ): Single<FilmResponseModel>
+
+    @GET("search/tv")
+    fun searchTvShows(
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+        @Query("query") query: String,
+        @Query("page") page: Int
+    ): Single<FilmResponseModel>
+
 }

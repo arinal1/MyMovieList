@@ -19,7 +19,7 @@ abstract class EndlessScrollListener : RecyclerView.OnScrollListener() {
             }
         }
         val visibleThreshold = 5
-        if (!mLoading && totalItemCount - visibleItemCount <= firstVisibleItem + visibleThreshold) {
+        if (totalItemCount != 0 && !mLoading && totalItemCount - visibleItemCount <= firstVisibleItem + visibleThreshold) {
             onLoadMore()
             mLoading = true
         }

@@ -18,6 +18,7 @@ import com.arinal.made.ui.base.BaseActivity
 import com.arinal.made.ui.detail.DetailActivity
 import com.arinal.made.ui.home.adapter.HomePagerAdapter
 import com.arinal.made.ui.settings.SettingLanguageActivity
+import com.arinal.made.utils.AlarmUtils
 import com.arinal.made.utils.scheduler.SchedulerProviderImpl
 import com.google.android.material.tabs.TabLayout
 import io.reactivex.disposables.CompositeDisposable
@@ -37,6 +38,7 @@ class HomeActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         initView()
         initData()
+        AlarmUtils(this)
     }
 
     private fun initView() {

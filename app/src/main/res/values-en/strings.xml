@@ -25,4 +25,6 @@
     <string name="search_tv">Search TV Shows</string>
     <string name="search_favorited_tv">Search Favorited TV Shows</string>
     <string name="back">Back</string>
+    <string name="notif_reminder_title">Reminder</string>
+    <string name="notif_reminder_msg">You have unwatched movies!</string>
 </resources>

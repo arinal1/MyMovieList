@@ -25,4 +25,6 @@
     <string name="search_tv">Cari Acara TV</string>
     <string name="search_favorited_tv">Cari Acara TV Favorit</string>
     <string name="back">Kembali</string>
+    <string name="notif_reminder_title">Pengingat</string>
+    <string name="notif_reminder_msg">Ada film lain yang belum kamu lihat loh…</string>
 </resources>

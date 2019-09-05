@@ -15,9 +15,14 @@ class SearchViewModel : ViewModel() {
         override fun onFailed(throwable: Throwable) = onError(throwable)
         override fun onGotData(category: Int, data: MutableList<FilmModel>) {
             if (filmList.value == null) filmList.postValue(data)
-            else filmList.postValue(filmList.value!!.apply { addAll(data) })
+            else if (!onQueryChanged) filmList.postValue(filmList.value!!.apply { addAll(data) })
+            else {
+                filmList.postValue(data)
+                onQueryChanged = false
+            }
         }
     }
+    private var onQueryChanged = false
 
     fun getListFilm(): MutableLiveData<MutableList<FilmModel>> = filmList
 
@@ -38,7 +43,7 @@ class SearchViewModel : ViewModel() {
     fun deleteFavorite(index: Int) = filmList.postValue(filmList.value?.apply { removeAt(index) })
 
     fun onQueryChanged() {
-        filmList.postValue(mutableListOf())
+        onQueryChanged = true
         repository.stopLastDisposable()
     }
 }

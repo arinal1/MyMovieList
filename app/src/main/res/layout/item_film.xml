@@ -28,35 +28,28 @@
                     android:id="@+id/txTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Title of the movie: For View Only"
-                    android:textSize="18sp"
-                    tools:ignore="HardcodedText"/>
+                    android:textStyle="bold"/>
 
             <TextView
                     android:id="@+id/txRelease"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="31 Januari 2019"
+                    android:textSize="12sp"
                     android:textColor="@color/textLight"
-                    tools:ignore="HardcodedText"
                     android:layout_marginTop="2dp"/>
 
             <TextView
                     android:id="@+id/txGenre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Action, Adventure, Comedy"
-                    android:textColor="@color/textLight"
-                    tools:ignore="HardcodedText"/>
+                    android:textSize="12sp"
+                    android:textColor="@color/textLight" />
 
             <TextView
                     android:id="@+id/txOverview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Seasoned musician Jackson Maine discovers — and falls in love with — struggling artist Ally. She has just about given up on her dream to ..."
-                    tools:ignore="HardcodedText"
-                    android:layout_marginTop="10dp"
-                    android:textSize="16sp"/>
+                    android:layout_marginTop="10dp" />
         </LinearLayout>
     </LinearLayout>
     <View

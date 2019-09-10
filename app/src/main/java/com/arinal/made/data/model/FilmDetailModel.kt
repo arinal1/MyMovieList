@@ -68,7 +68,7 @@ data class FilmDetailModel(
     fun getDuration(txHour: String, txMinute: String): String {
         val duration = when {
             category == 0 -> runtime
-            duration != null -> {
+            !duration.isNullOrEmpty()-> {
                 var total = 0
                 for (eps in duration)
                     total += eps

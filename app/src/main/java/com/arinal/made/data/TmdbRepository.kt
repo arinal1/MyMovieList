@@ -82,6 +82,15 @@ class TmdbRepository(
         compositeDisposable.add(disposable)
     }
 
+    fun getUpdates(date: String, filmCallback: FilmCallback) {
+        disposable = endpoint.getUpdates(TMDB_API_KEY, date, date).setSchedule(scheduler).subscribe({
+            filmCallback.onGotData(0, (it as FilmResponseModel).results.toMutableList())
+        }, {
+            filmCallback.onFailed(it)
+        })
+        compositeDisposable.add(disposable)
+    }
+
     fun searchFavorites(category: Int, query: String, page: Int, filmCallback: FilmCallback) {
         val start = if (page == 1) 0 else page * 10 - 10
         disposable = fromCallable { tmdbDao.searchFavorites(category, "%$query%", start) }

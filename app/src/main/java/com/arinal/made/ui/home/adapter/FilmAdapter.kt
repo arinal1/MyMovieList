@@ -54,9 +54,9 @@ class FilmAdapter(
                 view.txRelease.text = data.getDate()
                 view.txGenre.text = data.getGenre()
                 if (position == dataList.size) view.separator.gone()
-                view.txOverview.text = if (data.overview.length < 136) data.overview
+                view.txOverview.text = if (data.overview.length < 180) data.overview
                 else {
-                    val sinopsis = data.overview.substring(0, 115)
+                    val sinopsis = data.overview.substring(0, 180)
                     "${sinopsis.substring(0, sinopsis.lastIndexOf(" "))}..."
                 }
                 view.onClick { onClick(data, position - 1) }

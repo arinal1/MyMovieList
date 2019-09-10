@@ -22,7 +22,7 @@ data class FilmModel(
     @ColumnInfo(name = "title") val title: String,
 
     @SerializedName("poster_path")
-    @ColumnInfo(name = "poster_path") val poster: String,
+    @ColumnInfo(name = "poster_path") val poster: String?,
 
     @ColumnInfo(name = "category") var category: Int,
     @ColumnInfo(name = "id") val id: Int,
@@ -32,23 +32,33 @@ data class FilmModel(
     fun getGenre(): String {
         var genre = ""
         for ((i, id) in genres.withIndex()) genre = genre + when (id) {
-            10759 -> "Action & Adventure"
+            12 -> "Adventure"
+            14 -> "Fantasy"
             16 -> "Animation"
+            18 -> "Drama"
+            27 -> "Horror"
+            28 -> "Action"
             35 -> "Comedy"
+            36 -> "History"
+            37 -> "Western"
+            53 -> "Thriller"
             80 -> "Crime"
             99 -> "Documentary"
-            18 -> "Drama"
-            10751 -> "Family"
-            10762 -> "Kids"
+            878 -> "Science Fiction"
             9648 -> "Mystery"
+            10402 -> "Music"
+            10749 -> "Romance"
+            10751 -> "Family"
+            10752 -> "War"
+            10759 -> "Action & Adventure"
+            10762 -> "Kids"
             10763 -> "News"
             10764 -> "Reality"
             10765 -> "Sci-Fi & Fantasy"
             10766 -> "Soap"
             10767 -> "Talk"
             10768 -> "War & Politics"
-            37 -> "Western"
-            27 -> "Horror"
+            10770 -> "TV Movie"
             else -> ""
         } + if (i != genres.size - 1) ", " else ""
         return genre

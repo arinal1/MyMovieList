@@ -78,6 +78,7 @@ class SearchActivity : BaseActivity() {
         val layoutInflater = LayoutInflater.from(this)
         val glide = Glide.with(this)
         val onClick: (FilmModel, Int) -> Unit = { data, index ->
+            data.category = category
             val extra = ExtraDetailModel(data, index, isFavorite)
             startActivityForResult<DetailActivity>(getReqCode(isFavorite), "data" to extra)
         }

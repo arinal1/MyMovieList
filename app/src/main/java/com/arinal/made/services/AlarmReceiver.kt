@@ -3,17 +3,24 @@ package com.arinal.made.services
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.arinal.made.data.local.PreferenceManager
 import com.arinal.made.utils.AlarmUtils
-import com.arinal.made.utils.NotificationUtils
+import com.arinal.made.utils.Constants.reminderServiceId
 
 class AlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        val title = intent.getStringExtra("title") ?: "Reference See"
-        val msg = intent.getStringExtra("msg") ?: ""
-        val channelId = intent.getStringExtra("reminderChannelId") ?: "1"
-        val channelName = intent.getStringExtra("reminderChannelName") ?: "Notification"
-        NotificationUtils().showNotification(context, channelId, channelName, title, msg)
-        AlarmUtils(context)
+        val alarmType = intent.getIntExtra("alarmId", 0)
+        if (alarmType == reminderServiceId) {
+            if (PreferenceManager(context).reminderSet) {
+                PreferenceManager(context).reminderJobSet = false
+                AlarmUtils(context)
+            }
+        } else {
+            if (PreferenceManager(context).dailyUpdateSet) {
+                PreferenceManager(context).dailyUpdateJobSet = false
+                AlarmUtils(context)
+            }
+        }
     }
 }

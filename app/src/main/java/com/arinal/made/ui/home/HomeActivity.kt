@@ -17,7 +17,7 @@ import com.arinal.made.data.network.ApiClient
 import com.arinal.made.ui.base.BaseActivity
 import com.arinal.made.ui.detail.DetailActivity
 import com.arinal.made.ui.home.adapter.HomePagerAdapter
-import com.arinal.made.ui.settings.SettingLanguageActivity
+import com.arinal.made.ui.setting.SettingActivity
 import com.arinal.made.utils.AlarmUtils
 import com.arinal.made.utils.scheduler.SchedulerProviderImpl
 import com.google.android.material.tabs.TabLayout
@@ -96,7 +96,7 @@ class HomeActivity : BaseActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.setting) startActivity<SettingLanguageActivity>()
+        if (item.itemId == R.id.setting) startActivity<SettingActivity>()
         if (item.itemId == R.id.favorite) onClickFavorite(item)
         return super.onOptionsItemSelected(item)
     }

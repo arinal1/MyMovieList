@@ -3,7 +3,6 @@
     <string name="poster">Poster</string>
     <string name="title_tab_home_1">Movies</string>
     <string name="title_tab_home_2">Tv Shows</string>
-    <string name="title_setting_language">Language Setting</string>
     <string name="title_detail">Film Detail</string>
     <string name="subtitle_home">Dicoding submission 5</string>
     <string name="overview">Overview</string>
@@ -11,7 +10,6 @@
     <string name="setting">Setting</string>
     <string name="bahasa_indonesia">Bahasa Indonesia</string>
     <string name="english">English</string>
-    <string name="choose_language">Choose language for used in application</string>
     <string name="msg_success_set_language">Success change language</string>
     <string name="hours">Hours</string>
     <string name="minutes">Minutes</string>
@@ -27,4 +25,9 @@
     <string name="back">Back</string>
     <string name="notif_reminder_title">Reminder</string>
     <string name="notif_reminder_msg">You have unwatched movies!</string>
+    <string name="released_today">released today. Check it now!</string>
+    <string name="daily_update_notif">Daily update notification</string>
+    <string name="reminder_notif">Reminder notification</string>
+    <string name="notification">Notification</string>
+    <string name="language">Language</string>
 </resources>

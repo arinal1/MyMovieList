@@ -3,7 +3,6 @@
     <string name="poster">Poster</string>
     <string name="title_tab_home_1">Film</string>
     <string name="title_tab_home_2">Acara TV</string>
-    <string name="title_setting_language">Pengaturan Bahasa</string>
     <string name="title_detail">Detail Film</string>
     <string name="subtitle_home">Dicoding submission 5</string>
     <string name="overview">Sinopsis</string>
@@ -11,7 +10,6 @@
     <string name="setting">Pengaturan</string>
     <string name="bahasa_indonesia">Bahasa Indonesia</string>
     <string name="english">English</string>
-    <string name="choose_language">Pilih bahasa yang digunakan dalam aplikasi</string>
     <string name="msg_success_set_language">Berhasil mengganti bahasa</string>
     <string name="hours">Jam</string>
     <string name="minutes">Menit</string>
@@ -27,4 +25,9 @@
     <string name="back">Kembali</string>
     <string name="notif_reminder_title">Pengingat</string>
     <string name="notif_reminder_msg">Ada film lain yang belum kamu lihat loh…</string>
+    <string name="released_today">rilis hari ini. Ayo lihat!</string>
+    <string name="daily_update_notif">Notifikasi rilis film</string>
+    <string name="reminder_notif">Notifikasi pengingat harian</string>
+    <string name="notification">Notifikasi</string>
+    <string name="language">Bahasa</string>
 </resources>

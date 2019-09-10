@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.arinal.made.ui.setting.SettingActivity">
+
+    <TextView
+            android:id="@+id/notificationGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/notification"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+            android:id="@+id/bgUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:background="#FFF"
+            app:layout_constraintBottom_toBottomOf="@id/txUpdate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/notificationGroup" />
+
+    <TextView
+            android:id="@+id/txUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:padding="15dp"
+            android:text="@string/daily_update_notif"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/bgUpdate" />
+
+    <Switch
+            android:id="@+id/switchUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="@id/bgUpdate"
+            app:layout_constraintEnd_toEndOf="@id/bgUpdate"
+            app:layout_constraintTop_toTopOf="@+id/bgUpdate" />
+
+    <View
+            android:id="@+id/bgReminder"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="1dp"
+            android:background="#FFF"
+            app:layout_constraintBottom_toBottomOf="@id/txReminder"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bgUpdate" />
+
+    <TextView
+            android:id="@+id/txReminder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:padding="15dp"
+            android:text="@string/reminder_notif"
+            app:layout_constraintStart_toStartOf="@id/bgUpdate"
+            app:layout_constraintTop_toTopOf="@id/bgReminder" />
+
+    <Switch
+            android:id="@+id/switchReminder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="@id/bgReminder"
+            app:layout_constraintEnd_toEndOf="@id/bgReminder"
+            app:layout_constraintTop_toTopOf="@id/bgReminder" />
+
+    <TextView
+            android:id="@+id/languageGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/language"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/notificationGroup"
+            app:layout_constraintTop_toBottomOf="@+id/bgReminder" />
+
+    <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/languageGroup">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <View
+                    android:id="@+id/bgIndonesia"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="#FFF"
+                    app:layout_constraintBottom_toBottomOf="@id/cbBahasa"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <RadioButton
+                    android:id="@+id/cbBahasa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:layoutDirection="rtl"
+                    android:padding="15dp"
+                    android:text="@string/bahasa_indonesia"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/textRegular"
+                    app:layout_constraintEnd_toEndOf="@id/bgIndonesia"
+                    app:layout_constraintStart_toStartOf="@id/bgIndonesia"
+                    app:layout_constraintTop_toTopOf="@id/bgIndonesia" />
+
+            <View
+                    android:id="@+id/bgEnglish"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="1dp"
+                    android:background="#FFF"
+                    app:layout_constraintBottom_toBottomOf="@+id/cbEnglish"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bgIndonesia" />
+
+            <RadioButton
+                    android:id="@+id/cbEnglish"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:layoutDirection="rtl"
+                    android:padding="15dp"
+                    android:text="@string/english"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/textRegular"
+                    app:layout_constraintEnd_toEndOf="@id/bgEnglish"
+                    app:layout_constraintStart_toStartOf="@id/bgEnglish"
+                    app:layout_constraintTop_toTopOf="@id/bgEnglish" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </RadioGroup>
+</androidx.constraintlayout.widget.ConstraintLayout>

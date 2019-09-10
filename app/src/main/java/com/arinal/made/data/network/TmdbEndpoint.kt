@@ -37,6 +37,13 @@ interface TmdbEndpoint {
         @Query("language") language: String
     ): Single<FilmDetailModel>
 
+    @GET("discover/movie")
+    fun getUpdates(
+        @Query("api_key") apiKey: String,
+        @Query("primary_release_date.gte") dateGte: String,
+        @Query("primary_release_date.lte") dateLte: String
+    ): Single<FilmResponseModel>
+
     @GET("search/movie")
     fun searchMovies(
         @Query("api_key") apiKey: String,

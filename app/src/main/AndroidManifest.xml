@@ -15,7 +15,13 @@
             android:theme="@style/AppTheme"
             tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <service
-                android:name=".services.AlarmService"
+                android:name=".services.DailyUpdateService"
+                android:enabled="true"
+                android:exported="false"
+                android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <service
+                android:name=".services.ReminderService"
                 android:enabled="true"
                 android:exported="false"
                 android:permission="android.permission.BIND_JOB_SERVICE" />
@@ -26,11 +32,10 @@
                 android:exported="false" />
 
         <activity android:name=".ui.search.SearchActivity" />
-        <activity android:name=".ui.settings.SettingLanguageActivity" />
+        <activity android:name=".ui.setting.SettingActivity" />
         <activity
                 android:name=".ui.home.HomeActivity"
-                android:theme="@style/AppTheme.NoActionBar"
-                android:noHistory="true">
+                android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

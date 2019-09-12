@@ -11,7 +11,6 @@ import android.content.Context
 import android.content.Context.ALARM_SERVICE
 import android.content.Context.JOB_SCHEDULER_SERVICE
 import android.os.PersistableBundle
-import com.arinal.made.R
 import com.arinal.made.data.local.PreferenceManager
 import com.arinal.made.services.AlarmReceiver
 import com.arinal.made.services.DailyUpdateService
@@ -49,8 +48,6 @@ class AlarmUtils(private val context: Context) {
     private fun setReminderJob() {
         val jobService = ComponentName(context, ReminderService::class.java)
         val extras = PersistableBundle().apply {
-            putString("title", context.getString(R.string.notif_reminder_title))
-            putString("msg", context.getString(R.string.notif_reminder_msg))
             putString("reminderChannelId", reminderChannelId)
             putString("reminderChannelName", reminderChannelName)
         }
@@ -72,7 +69,7 @@ class AlarmUtils(private val context: Context) {
             .setRequiredNetworkType(NETWORK_TYPE_ANY)
             .setRequiresDeviceIdle(false)
             .setRequiresCharging(false)
-            .setPeriodic(24 * 60 * 1000L)
+            .setPeriodic(24 * 60 * 60 * 1000L)
         val jobScheduler = context.getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler
         jobScheduler.schedule(builder.build())
     }
@@ -87,6 +84,6 @@ class AlarmUtils(private val context: Context) {
         val intent = context.intentFor<AlarmReceiver>("alarmId" to alarmId)
         val pendingIntent = getBroadcast(context, alarmId, intent, 0)
         val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
-        alarmManager.set(RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+        alarmManager.setExact(RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
     }
 }

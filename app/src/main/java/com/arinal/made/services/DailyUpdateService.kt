@@ -5,6 +5,7 @@ import android.app.job.JobService
 import com.arinal.made.R
 import com.arinal.made.data.DataCallback
 import com.arinal.made.data.TmdbRepository
+import com.arinal.made.data.local.PreferenceManager
 import com.arinal.made.data.local.TmdbDatabase
 import com.arinal.made.data.model.FilmModel
 import com.arinal.made.data.network.ApiClient
@@ -17,6 +18,7 @@ import java.util.*
 class DailyUpdateService : JobService() {
 
     override fun onStartJob(job: JobParameters?): Boolean {
+        setLocale()
         val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(System.currentTimeMillis())
         val compositeDisposable = CompositeDisposable()
         TmdbRepository(
@@ -39,6 +41,15 @@ class DailyUpdateService : JobService() {
         })
         jobFinished(job, false)
         return true
+    }
+
+    @Suppress("DEPRECATION")
+    private fun setLocale() {
+        val locale = Locale(PreferenceManager(applicationContext).language)
+        Locale.setDefault(locale)
+        val configuration = resources.configuration
+        configuration.locale = locale
+        resources.updateConfiguration(configuration, resources.displayMetrics)
     }
 
     override fun onStopJob(job: JobParameters?): Boolean = true

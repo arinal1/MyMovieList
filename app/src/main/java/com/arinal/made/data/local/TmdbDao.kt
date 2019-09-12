@@ -1,5 +1,6 @@
 package com.arinal.made.data.local
 
+import android.database.Cursor
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -22,6 +23,12 @@ interface TmdbDao {
 
     @Query("SELECT * FROM film WHERE category = :category LIMIT :start , 10")
     fun getFavorites(category: Int, start: Int): List<FilmModel>
+
+    @Query("SELECT * FROM film WHERE category = :category LIMIT :start , 10")
+    fun getFavoritesContent(category: Int, start: Int): Cursor
+    
+    @Query("SELECT * FROM film WHERE category = :category AND id = :id")
+    fun getFavoriteContent(category: Int, id: Int): Cursor
 
     @Query("SELECT `key` FROM film WHERE category = :category AND id = :id LIMIT 1")
     fun getFavoriteKey(category: Int, id: Int): Int

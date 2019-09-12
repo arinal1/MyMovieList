@@ -1,25 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         package="com.arinal.made">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <permission
+            android:name="com.arinal.made.READ_DATABASE"
+            android:protectionLevel="normal" />
+    <permission
+            android:name="com.arinal.made.WRITE_DATABASE"
+            android:protectionLevel="normal" />
 
     <application
             android:allowBackup="true"
+            android:fullBackupContent="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:supportsRtl="true"
-            android:theme="@style/AppTheme"
-            tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+            android:theme="@style/AppTheme">
+        <provider
+                android:name=".utils.FavoriteContentProvider"
+                android:authorities="com.arinal.made"
+                android:exported="true"
+                android:readPermission="com.arinal.made.READ_DATABASE"
+                android:writePermission="com.arinal.made.WRITE_DATABASE" />
+
         <service
                 android:name=".services.DailyUpdateService"
                 android:enabled="true"
                 android:exported="false"
                 android:permission="android.permission.BIND_JOB_SERVICE" />
-
         <service
                 android:name=".services.ReminderService"
                 android:enabled="true"
@@ -38,6 +49,7 @@
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -46,5 +58,4 @@
                 android:name=".ui.detail.DetailActivity"
                 android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
     </application>
-
 </manifest>

@@ -4,12 +4,14 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapseToolbar"
@@ -20,8 +22,11 @@
                 app:expandedTitleTextAppearance="@android:color/transparent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/posterLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-48dp"
+                    android:visibility="gone">
 
                 <ImageView
                         android:id="@+id/ivPoster"
@@ -33,11 +38,20 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
 
+                <Space
+                        android:id="@+id/topViewIntro"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toTopOf="@+id/txTitle"
+                        android:layout_marginBottom="10dp"/>
+
                 <View
                         android:id="@+id/viewIntro"
                         android:layout_width="match_parent"
-                        android:layout_height="120dp"
+                        android:layout_height="0dp"
                         app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/topViewIntro"
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:background="#80000000"/>
 
@@ -51,31 +65,25 @@
                         tools:targetApi="o"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/viewIntro"
+                        app:layout_constraintBottom_toTopOf="@id/txRelease"
                         app:layout_constrainedWidth="true"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
-                        android:layout_marginTop="20dp"
-                        android:translationZ="2dp"
                         android:textColor="@color/colorPrimary"/>
 
                 <TextView
                         android:id="@+id/txRelease"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        tools:targetApi="m"
-                        android:gravity="center_vertical"
-                        app:layout_constraintTop_toBottomOf="@id/txTitle"
+                        app:layout_constraintBottom_toTopOf="@id/ratingBar"
                         app:layout_constraintStart_toStartOf="@id/txTitle"
-                        android:textColor="#CCFFFFFF"/>
+                        android:textColor="#CCFFFFFF"
+                        android:layout_marginBottom="5dp"/>
 
                 <TextView
                         android:id="@+id/txDuration"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        tools:targetApi="m"
-                        android:gravity="center_vertical"
                         app:layout_constraintStart_toEndOf="@id/txRelease"
                         app:layout_constraintTop_toTopOf="@id/txRelease"
                         android:layout_marginStart="20dp"
@@ -87,8 +95,8 @@
                         android:layout_height="wrap_content"
                         style="?android:attr/ratingBarStyleSmall"
                         app:layout_constraintStart_toStartOf="@id/txTitle"
-                        app:layout_constraintTop_toBottomOf="@id/txRelease"
-                        android:layout_marginTop="10dp"
+                        app:layout_constraintBottom_toBottomOf="@id/viewIntro"
+                        android:layout_marginBottom="15dp"
                         android:numStars="5"
                         android:rating="3.2"
                         android:theme="@style/RatingBar"/>
@@ -107,11 +115,8 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    android:title="@string/title_detail"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                    app:layout_collapseMode="pin"
-                    android:layout_marginTop="24dp"/>
+                    app:layout_collapseMode="pin"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -157,7 +162,8 @@
                     android:layout_marginEnd="20dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/progressBar"/>
+                    app:layout_constraintTop_toBottomOf="@id/progressBar"
+                    android:visibility="gone"/>
 
             <TextView
                     android:id="@+id/txOverview"
@@ -180,7 +186,8 @@
                     android:gravity="center_vertical"
                     app:layout_constraintStart_toStartOf="@id/txOverview"
                     app:layout_constraintTop_toBottomOf="@id/txOverview"
-                    android:text="@string/genre"/>
+                    android:text="@string/genre"
+                    android:visibility="gone"/>
 
             <TextView
                     android:id="@+id/txGenre"
@@ -200,7 +207,8 @@
                     android:gravity="center_vertical"
                     app:layout_constraintTop_toBottomOf="@id/genre"
                     app:layout_constraintStart_toStartOf="@id/genre"
-                    android:text="@string/budget"/>
+                    android:text="@string/budget"
+                    android:visibility="gone"/>
 
             <TextView
                     android:id="@+id/txBudget"
@@ -222,7 +230,8 @@
                     app:layout_constraintTop_toBottomOf="@id/budget"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginBottom="20dp"
-                    android:text="@string/revenue"/>
+                    android:text="@string/revenue"
+                    android:visibility="gone"/>
 
             <TextView
                     android:id="@+id/txRevenue"

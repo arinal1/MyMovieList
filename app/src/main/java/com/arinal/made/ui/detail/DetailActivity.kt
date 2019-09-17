@@ -1,7 +1,8 @@
 package com.arinal.made.ui.detail
 
+import android.animation.ValueAnimator.ofInt
 import android.content.Intent
-import android.graphics.BlendMode
+import android.graphics.BlendMode.SRC_ATOP
 import android.graphics.BlendModeColorFilter
 import android.graphics.Color
 import android.graphics.PorterDuff
@@ -11,6 +12,8 @@ import android.os.Build.VERSION_CODES.Q
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.animation.DecelerateInterpolator
+import androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.lifecycle.Observer
@@ -26,9 +29,11 @@ import com.arinal.made.data.network.ApiClient
 import com.arinal.made.ui.base.BaseActivity
 import com.arinal.made.utils.Constants
 import com.arinal.made.utils.extension.gone
+import com.arinal.made.utils.extension.visible
 import com.arinal.made.utils.scheduler.SchedulerProviderImpl
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.AppBarLayout.Behavior
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_detail.*
 import org.jetbrains.anko.toast
@@ -60,8 +65,9 @@ class DetailActivity : BaseActivity() {
     }
 
     private fun setAppbarListener() {
-        appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, offset ->
-            appbar.post {
+        appbar.post {
+            filmTitle = getString(R.string.title_detail)
+            appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, offset ->
                 val isOffset = offset < (posterHeight - 300) / -1
                 collapseToolbar.title = if (isOffset) filmTitle else ""
                 val typedArray = theme.obtainStyledAttributes(
@@ -74,16 +80,15 @@ class DetailActivity : BaseActivity() {
                 val color = Color.parseColor(if (isOffset) "#000000" else "#FFFFFF")
                 dwFavorite?.setTint(color)
                 dwFavorited?.setTint(color)
-                if (SDK_INT >= Q) upArrow?.colorFilter =
-                    BlendModeColorFilter(color, BlendMode.SRC_ATOP)
+                if (SDK_INT >= Q) upArrow?.colorFilter = BlendModeColorFilter(color, SRC_ATOP)
                 else {
                     @Suppress("DEPRECATION")
                     upArrow?.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
                 }
                 supportActionBar?.setHomeAsUpIndicator(upArrow)
                 supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            }
-        })
+            })
+        }
     }
 
     private fun initData() {
@@ -110,11 +115,27 @@ class DetailActivity : BaseActivity() {
     private fun onGotData(): Observer<FilmDetailModel> = Observer {
         dataDetail = it
         progressBar.gone()
+        posterLayout.visible()
+        txTitleOverview.visible()
+        genre.visible()
+        budget.visible()
+        revenue.visible()
         Glide.with(this).load(Constants.tmdbImgUrl + it.poster).into(ivPoster)
             .getSize { _, height ->
-                posterHeight = height - 200
+                posterHeight = height
                 ivPoster.layoutParams.height = posterHeight
                 ivPoster.requestLayout()
+                val behavior = (appbar.layoutParams as LayoutParams).behavior as Behavior
+                ofInt().apply {
+                    interpolator = DecelerateInterpolator()
+                    addUpdateListener { animation ->
+                        behavior.topAndBottomOffset = animation.animatedValue as Int
+                        appbar.requestLayout()
+                    }
+                    setIntValues(0, -200)
+                    duration = 600
+                    start()
+                }
             }
         it.category = dataFilm.category
         filmTitle = it.title
@@ -125,11 +146,6 @@ class DetailActivity : BaseActivity() {
         if (dataFilm.category == 0) {
             txBudget.text = it.getBudget()
             txRevenue.text = it.getRevenue()
-        } else {
-            txBudget.gone()
-            txRevenue.gone()
-            budget.gone()
-            revenue.gone()
         }
         txOverview.text = it.overview
         ratingBar.rating = (it.voteAverage * 5 / 10).toFloat()

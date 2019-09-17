@@ -145,6 +145,7 @@ class HomeFragment : Fragment() {
         filmList.clear()
         filmList.addAll(it)
         filmAdapter.notifyDataSetChanged()
+        if (it.isEmpty()) txEmpty.visible() else txEmpty.gone()
         if (recyclerView.adapter == null) recyclerView.adapter = filmAdapter
     }
 
@@ -161,6 +162,8 @@ class HomeFragment : Fragment() {
 
     private fun onError(throwable: Throwable) = runOnUiThread {
         progressBar.gone()
+        if (isOnFavorite() && favoriteList.isEmpty()) txEmpty.visible()
+        else if (!isOnFavorite() && filmList.isEmpty()) txEmpty.visible()
         toast(throwable.localizedMessage ?: "")
     }
 }

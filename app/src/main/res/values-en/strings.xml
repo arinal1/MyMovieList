@@ -17,6 +17,7 @@
     <string name="budget">Budget :&#160;</string>
     <string name="revenue">Revenue :&#160;</string>
     <string name="favorite">Favorite</string>
+    <string name="favorite_movies">Favorite Movies</string>
     <string name="empty">Data is empty</string>
     <string name="search_movie">Search Movies</string>
     <string name="search_favorited_movie">Search Favorited Movies</string>

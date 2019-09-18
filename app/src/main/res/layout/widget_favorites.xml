@@ -1,0 +1,38 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <TextView
+                android:id="@+id/txBanner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimaryDark"
+                android:padding="7dp"
+                android:text="@string/favorite_movies"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary" />
+
+        <ListView
+                android:id="@+id/listView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txBanner"
+                android:overScrollMode="never"
+                android:scrollbars="none" />
+    </RelativeLayout>
+
+    <TextView
+            android:id="@+id/txEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/empty"
+            android:textColor="@color/textRegular"
+            android:textSize="16sp" />
+</FrameLayout>

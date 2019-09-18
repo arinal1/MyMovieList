@@ -32,13 +32,12 @@ class TmdbRepository(
                 } else {
                     callback.onGotData(it[0])
                     callback.onSuccess(true)
-                    Single.just(null)
+                    Single.just("")
                 }
             }
             .observeOn(scheduler.ui())
             .subscribe({
-                if (it != null) callback.onGotData(it)
-                else callback.onFailed(Throwable())
+                if (it is FilmDetailModel) callback.onGotData(it)
             }, {
                 callback.onFailed(it)
             })

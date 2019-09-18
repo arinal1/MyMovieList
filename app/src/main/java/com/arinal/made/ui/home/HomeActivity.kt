@@ -18,7 +18,6 @@ import com.arinal.made.ui.base.BaseActivity
 import com.arinal.made.ui.detail.DetailActivity
 import com.arinal.made.ui.home.adapter.HomePagerAdapter
 import com.arinal.made.ui.setting.SettingActivity
-import com.arinal.made.utils.AlarmUtils
 import com.arinal.made.utils.scheduler.SchedulerProviderImpl
 import com.google.android.material.tabs.TabLayout
 import io.reactivex.disposables.CompositeDisposable
@@ -36,9 +35,14 @@ class HomeActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        checkIntent()
         initView()
         initData()
-        AlarmUtils(this)
+    }
+
+    private fun checkIntent() {
+        val goToDetail = intent.getBooleanExtra("goToDetail", false)
+        if (goToDetail) startActivity<DetailActivity>("data" to intent.getParcelableExtra("data"))
     }
 
     private fun initView() {

@@ -17,6 +17,7 @@
     <string name="budget">Anggaran :&#160;</string>
     <string name="revenue">pendapatan :&#160;</string>
     <string name="favorite">Favorit</string>
+    <string name="favorite_movies">Film Favorit</string>
     <string name="empty">Data kosong</string>
     <string name="search_movie">Cari Film</string>
     <string name="search_favorited_movie">Cari Film Favorit</string>

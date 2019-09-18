@@ -13,6 +13,7 @@
             android:protectionLevel="normal" />
 
     <application
+            android:name=".ReferenceSeeApplication"
             android:allowBackup="true"
             android:fullBackupContent="true"
             android:icon="@mipmap/ic_launcher"
@@ -41,6 +42,21 @@
                 android:name=".services.AlarmReceiver"
                 android:enabled="true"
                 android:exported="false" />
+
+        <service
+                android:name=".services.StackWidgetService"
+                android:exported="false"
+                android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <receiver android:name=".utils.widget.FavoritesWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                    android:name="android.appwidget.provider"
+                    android:resource="@xml/favorites_widget_info" />
+        </receiver>
 
         <activity android:name=".ui.search.SearchActivity" />
         <activity android:name=".ui.setting.SettingActivity" />

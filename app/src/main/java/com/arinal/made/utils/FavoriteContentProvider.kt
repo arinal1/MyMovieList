@@ -6,6 +6,7 @@ import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
 import android.net.Uri.Builder
+import com.arinal.made.ReferenceSeeApplication.Companion.updateFavoritesWidget
 import com.arinal.made.data.local.TmdbDao
 import com.arinal.made.data.local.TmdbDatabase
 import com.arinal.made.data.model.FilmModel
@@ -69,8 +70,9 @@ class FavoriteContentProvider : ContentProvider() {
         json = json.substring(11, json.length - 1)
         val data = Gson().fromJson<FilmModel>(json, object : TypeToken<FilmModel>() {}.type)
         val added = when (uriMatcher.match(uri)) {
-            FAVORITE_MOVIE_ID, FAVORITE_TV_ID -> {
+            FAVORITE_MOVIE, FAVORITE_TV -> {
                 tmdbDao.insertFavorite(data)
+                updateFavoritesWidget()
                 0
             }
             else -> -1
@@ -80,13 +82,14 @@ class FavoriteContentProvider : ContentProvider() {
 
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?): Int {
         return when (uriMatcher.match(uri)) {
-            FAVORITE_MOVIE, FAVORITE_TV -> {
+            FAVORITE_MOVIE_ID, FAVORITE_TV_ID -> {
                 val category = if (uriMatcher.match(uri) == FAVORITE_MOVIE_ID) 0 else 1
                 val id = uri.lastPathSegment?.toInt() ?: 0
                 val key = tmdbDao.getFavoriteKey(category, id)
                 tmdbDao.deleteFavorite(key)
                 val detailKey = tmdbDao.getDetailKey(category, id)
                 tmdbDao.deleteDetailFilm(detailKey)
+                updateFavoritesWidget()
                 0
             }
             else -> -1

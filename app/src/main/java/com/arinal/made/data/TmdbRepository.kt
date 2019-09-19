@@ -1,6 +1,7 @@
 package com.arinal.made.data
 
 import com.arinal.made.BuildConfig.TMDB_API_KEY
+import com.arinal.made.ReferenceSeeApplication.Companion.updateFavoritesWidget
 import com.arinal.made.data.DataCallback.FilmCallback
 import com.arinal.made.data.DataCallback.FilmDetailCallback
 import com.arinal.made.data.local.TmdbDao
@@ -122,6 +123,7 @@ class TmdbRepository(
             .observeOn(scheduler.ui())
             .subscribe({
                 callback.onSuccess(true)
+                updateFavoritesWidget()
             }, {
                 callback.onFailed(it)
             })
@@ -137,6 +139,7 @@ class TmdbRepository(
             .observeOn(scheduler.ui())
             .subscribe({
                 callback.onSuccess(false)
+                updateFavoritesWidget()
             }, {
                 callback.onFailed(it)
             })

@@ -20,6 +20,18 @@
             android:label="@string/app_name"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <receiver
+                android:name=".services.BootUpReceiver"
+                android:enabled="true"
+                android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
         <provider
                 android:name=".utils.FavoriteContentProvider"
                 android:authorities="com.arinal.made"
@@ -74,4 +86,5 @@
                 android:name=".ui.detail.DetailActivity"
                 android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
     </application>
+
 </manifest>

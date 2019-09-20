@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 abstract class EndlessScrollListener : RecyclerView.OnScrollListener() {
     private var mPreviousTotal = 0
     private var mLoading = true
+    private var firstInit = true
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
@@ -20,8 +21,11 @@ abstract class EndlessScrollListener : RecyclerView.OnScrollListener() {
         }
         val visibleThreshold = 5
         if (totalItemCount != 0 && !mLoading && totalItemCount - visibleItemCount <= firstVisibleItem + visibleThreshold) {
-            onLoadMore()
-            mLoading = true
+            if (firstInit && totalItemCount > 1) firstInit = false
+            else {
+                onLoadMore()
+                mLoading = true
+            }
         }
     }
 

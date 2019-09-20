@@ -16,6 +16,7 @@ import com.arinal.made.data.model.FilmModel
 import com.arinal.made.data.network.ApiClient
 import com.arinal.made.ui.base.BaseActivity
 import com.arinal.made.ui.detail.DetailActivity
+import com.arinal.made.ui.home.HomeActivity
 import com.arinal.made.ui.home.adapter.FilmAdapter
 import com.arinal.made.utils.EndlessScrollListener
 import com.arinal.made.utils.extension.gone
@@ -24,6 +25,8 @@ import com.arinal.made.utils.scheduler.SchedulerProviderImpl
 import com.bumptech.glide.Glide
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_search.*
+import org.jetbrains.anko.clearTop
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
@@ -34,6 +37,7 @@ class SearchActivity : BaseActivity() {
     private lateinit var viewModel: SearchViewModel
     private val compositeDisposable = CompositeDisposable()
     private var category = 0
+    private var changes = false
     private var filmList: MutableList<FilmModel> = mutableListOf()
     private var isFavorite = false
     private var page = 1
@@ -112,13 +116,17 @@ class SearchActivity : BaseActivity() {
         if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
             val removed = !data.getBooleanExtra("added", false)
             val index = data.getIntExtra("index", 0)
-            if (removed) viewModel.deleteFavorite(index)
+            if (removed) {
+                viewModel.deleteFavorite(index)
+                changes = true
+            }
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun finish() {
         compositeDisposable.dispose()
+        if (changes) startActivity(intentFor<HomeActivity>().clearTop())
         super.finish()
     }
 }

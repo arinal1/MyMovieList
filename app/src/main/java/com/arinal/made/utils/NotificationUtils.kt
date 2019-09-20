@@ -21,33 +21,35 @@ import java.util.Locale.getDefault
 
 class NotificationUtils {
 
-    fun showNotification(context: Context, channelId: String, channelName: String, title: String, msg: String) {
-        val notificationManager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        val intent = context.intentFor<HomeActivity>().setAction(ACTION_MAIN).addCategory(CATEGORY_LAUNCHER)
-        val pendingIntent = getActivity(context, 0, intent, FLAG_UPDATE_CURRENT)
-        val notification = Builder(context, channelId)
-            .setContentIntent(pendingIntent)
-            .setContentTitle(title)
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentText(msg)
-            .setGroup(channelName)
-            .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
-            .setAutoCancel(true)
-            .build()
-        if (SDK_INT >= O) {
-            val channel = NotificationChannel(channelId, channelName, IMPORTANCE_DEFAULT)
-            notificationManager.createNotificationChannel(channel)
+    companion object {
+        fun showNotification(context: Context, channelId: String, channelName: String, title: String, msg: String) {
+            val notificationManager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            val intent = context.intentFor<HomeActivity>().setAction(ACTION_MAIN).addCategory(CATEGORY_LAUNCHER)
+            val pendingIntent = getActivity(context, 0, intent, FLAG_UPDATE_CURRENT)
+            val notification = Builder(context, channelId)
+                .setContentIntent(pendingIntent)
+                .setContentTitle(title)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentText(msg)
+                .setGroup(channelName)
+                .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
+                .setAutoCancel(true)
+                .build()
+            if (SDK_INT >= O) {
+                val channel = NotificationChannel(channelId, channelName, IMPORTANCE_DEFAULT)
+                notificationManager.createNotificationChannel(channel)
+            }
+            val id = SimpleDateFormat("ssSSS", getDefault()).format(currentTimeMillis()).toInt()
+            val summaryNotification = Builder(context, channelId)
+                .setContentTitle(title)
+                .setContentText(msg)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setGroup(channelName)
+                .setGroupSummary(true)
+                .setAutoCancel(true)
+                .build()
+            notificationManager.notify(id, notification)
+            notificationManager.notify(channelId.toInt(), summaryNotification)
         }
-        val id = SimpleDateFormat("ssSSS", getDefault()).format(currentTimeMillis()).toInt()
-        val summaryNotification = Builder(context, channelId)
-            .setContentTitle(title)
-            .setContentText(msg)
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setGroup(channelName)
-            .setGroupSummary(true)
-            .setAutoCancel(true)
-            .build()
-        notificationManager.notify(id, notification)
-        notificationManager.notify(channelId.toInt(), summaryNotification)
     }
 }

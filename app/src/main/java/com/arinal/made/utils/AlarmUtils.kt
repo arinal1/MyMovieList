@@ -27,63 +27,68 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Calendar.*
 
-class AlarmUtils(private val context: Context) {
-
-    private val preference: PreferenceManager = PreferenceManager(context)
-
-    init {
-        val format = SimpleDateFormat("HHmm", Locale.getDefault())
-        if (preference.reminderSet && !preference.reminderJobSet) {
-            if (format.format(currentTimeMillis()) == "0700") setReminderJob()
-            else setAlarm(7, reminderServiceId)
-            preference.reminderJobSet = true
+class AlarmUtils {
+    companion object {
+        fun setScheduleAlarm(context: Context) {
+            val preference = PreferenceManager(context)
+            val format = SimpleDateFormat("HHmm", Locale.getDefault())
+            val time = currentTimeMillis()
+            if (preference.reminderSet && !preference.reminderJobSet) {
+                if (format.format(time) == "0700") setAlarm(time, context, reminderServiceId)
+                else setAlarm(context, 7, reminderServiceId)
+                preference.reminderJobSet = true
+            }
+            if (preference.dailyUpdateSet && !preference.dailyUpdateJobSet) {
+                if (format.format(time) == "0800") setAlarm(time, context, updateServiceId)
+                else setAlarm(context, 8, updateServiceId)
+                preference.dailyUpdateJobSet = true
+            }
         }
-        if (preference.dailyUpdateSet && !preference.dailyUpdateJobSet) {
-            if (format.format(currentTimeMillis()) == "0800") setUpdateJob()
-            else setAlarm(8, updateServiceId)
-            preference.dailyUpdateJobSet = true
-        }
-    }
 
-    private fun setReminderJob() {
-        val jobService = ComponentName(context, ReminderService::class.java)
-        val extras = PersistableBundle().apply {
-            putString("reminderChannelId", reminderChannelId)
-            putString("reminderChannelName", reminderChannelName)
+        fun setReminderJob(context: Context) {
+            val jobService = ComponentName(context, ReminderService::class.java)
+            val extras = PersistableBundle().apply {
+                putString("reminderChannelId", reminderChannelId)
+                putString("reminderChannelName", reminderChannelName)
+            }
+            setJob(context, reminderServiceId, jobService, extras)
         }
-        setJob(reminderServiceId, jobService, extras)
-    }
 
-    private fun setUpdateJob() {
-        val jobService = ComponentName(context, DailyUpdateService::class.java)
-        val extras = PersistableBundle().apply {
-            putString("updateChannelId", updateChannelId)
-            putString("updateChannelName", updateChannelName)
+        fun setUpdateJob(context: Context) {
+            val jobService = ComponentName(context, DailyUpdateService::class.java)
+            val extras = PersistableBundle().apply {
+                putString("updateChannelId", updateChannelId)
+                putString("updateChannelName", updateChannelName)
+            }
+            setJob(context, updateServiceId, jobService, extras)
         }
-        setJob(updateServiceId, jobService, extras)
-    }
 
-    private fun setJob(jobId: Int, jobService: ComponentName, extras: PersistableBundle) {
-        val builder = Builder(jobId, jobService)
-            .setExtras(extras)
-            .setRequiredNetworkType(NETWORK_TYPE_ANY)
-            .setRequiresDeviceIdle(false)
-            .setRequiresCharging(false)
-            .setPeriodic(24 * 60 * 60 * 1000L)
-        val jobScheduler = context.getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler
-        jobScheduler.schedule(builder.build())
-    }
-
-    private fun setAlarm(hour: Int, alarmId: Int) {
-        val calendar = getInstance().apply {
-            set(HOUR_OF_DAY, hour)
-            set(MINUTE, 0)
-            set(SECOND, 0)
+        private fun setJob(context: Context, jobId: Int, jobService: ComponentName, extras: PersistableBundle) {
+            val builder = Builder(jobId, jobService)
+                .setExtras(extras)
+                .setRequiredNetworkType(NETWORK_TYPE_ANY)
+                .setRequiresDeviceIdle(false)
+                .setRequiresCharging(false)
+                .setPeriodic(15 * 60 * 1000L)
+            val jobScheduler = context.getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler
+            jobScheduler.schedule(builder.build())
         }
-        if (calendar.timeInMillis - currentTimeMillis() < 0) calendar.add(DAY_OF_MONTH, 1)
-        val intent = context.intentFor<AlarmReceiver>("alarmId" to alarmId)
-        val pendingIntent = getBroadcast(context, alarmId, intent, 0)
-        val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
-        alarmManager.setExact(RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+
+        private fun setAlarm(context: Context, hour: Int, alarmId: Int) {
+            val calendar = getInstance().apply {
+                set(HOUR_OF_DAY, hour)
+                set(MINUTE, 0)
+                set(SECOND, 0)
+            }
+            if (calendar.timeInMillis - currentTimeMillis() < 0) calendar.add(DAY_OF_MONTH, 1)
+            setAlarm(calendar.timeInMillis, context, alarmId)
+        }
+
+        private fun setAlarm(time: Long, context: Context, alarmId: Int) {
+            val intent = context.intentFor<AlarmReceiver>("alarmId" to alarmId)
+            val pendingIntent = getBroadcast(context, alarmId, intent, 0)
+            val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
+            alarmManager.setExact(RTC_WAKEUP, time, pendingIntent)
+        }
     }
 }

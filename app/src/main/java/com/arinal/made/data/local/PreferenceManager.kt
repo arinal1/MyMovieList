@@ -44,4 +44,18 @@ class PreferenceManager(context: Context) {
             editor = pref.edit()
             editor.putBoolean("DAILY_UPDATE_JOB", status)?.apply()
         }
+
+    var lastUpdateNotif: String
+        get() = pref.getString("LAST_UPDATE_NOTIF", "") ?: ""
+        set(data) {
+            editor = pref.edit()
+            editor.putString("LAST_UPDATE_NOTIF", data)?.apply()
+        }
+
+    var lastReminderNotif: String
+        get() = pref.getString("LAST_REMINDER_NOTIF", "") ?: ""
+        set(data) {
+            editor = pref.edit()
+            editor.putString("LAST_REMINDER_NOTIF", data)?.apply()
+        }
 }

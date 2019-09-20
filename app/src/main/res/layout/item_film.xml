@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -16,34 +14,34 @@
                 android:id="@+id/ivPoster"
                 android:layout_width="100dp"
                 android:layout_height="150dp"
-                android:contentDescription="@string/poster"/>
+                android:contentDescription="@string/poster" />
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="10dp">
+                android:layout_marginStart="10dp"
+                android:orientation="vertical">
 
             <TextView
                     android:id="@+id/txTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
             <TextView
                     android:id="@+id/txRelease"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    android:layout_marginTop="2dp"
                     android:textColor="@color/textLight"
-                    android:layout_marginTop="2dp"/>
+                    android:textSize="12sp" />
 
             <TextView
                     android:id="@+id/txGenre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:textColor="@color/textLight" />
+                    android:textColor="@color/textLight"
+                    android:textSize="12sp" />
 
             <TextView
                     android:id="@+id/txOverview"
@@ -52,9 +50,10 @@
                     android:layout_marginTop="10dp" />
         </LinearLayout>
     </LinearLayout>
+
     <View
             android:id="@+id/separator"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#9A000000"/>
+            android:background="#9A000000" />
 </LinearLayout>

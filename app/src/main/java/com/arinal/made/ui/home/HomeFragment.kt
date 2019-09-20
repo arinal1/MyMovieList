@@ -3,6 +3,8 @@ package com.arinal.made.ui.home
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -152,11 +154,8 @@ class HomeFragment : Fragment() {
     private fun onShowFavorite(): Observer<Boolean> = Observer {
         progressBar.visible()
         recyclerView.adapter = if (it) favoriteAdapter else filmAdapter
-        if (it && favoriteList.isEmpty()) getData()
-        else {
-            progressBar.gone()
-            txEmpty.gone()
-        }
+        txEmpty.visibility = if ((it && favoriteList.isEmpty()) || (!it && filmList.isEmpty())) VISIBLE else GONE
+        progressBar.gone()
         setScrollListener()
     }
 

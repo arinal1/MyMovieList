@@ -22,7 +22,7 @@ class FavoritesWidget : AppWidgetProvider() {
 
     override fun onUpdate(context: Context, widgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         for (widgetId in appWidgetIds) {
-            val remoteViews = getRemoteViews(context)
+            val remoteViews = RemoteViews(context.packageName, R.layout.widget_favorites)
             val serviceIntent = context.intentFor<StackWidgetService>(EXTRA_APPWIDGET_ID to widgetId)
             serviceIntent.data = parse(serviceIntent.toUri(URI_INTENT_SCHEME))
             remoteViews.setRemoteAdapter(R.id.listView, serviceIntent)
@@ -46,6 +46,4 @@ class FavoritesWidget : AppWidgetProvider() {
             }
         }
     }
-
-    private fun getRemoteViews(context: Context): RemoteViews = RemoteViews(context.packageName, R.layout.widget_favorites)
 }

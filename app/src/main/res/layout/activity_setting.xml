@@ -30,10 +30,10 @@
 
     <TextView
             android:id="@+id/txUpdate"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:padding="15dp"
+            android:background="?selectableItemBackground"
+            style="@style/SettingButton"
             android:text="@string/daily_update_notif"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/bgUpdate" />
@@ -59,10 +59,10 @@
 
     <TextView
             android:id="@+id/txReminder"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:padding="15dp"
+            android:background="?selectableItemBackground"
+            style="@style/SettingButton"
             android:text="@string/reminder_notif"
             app:layout_constraintStart_toStartOf="@id/bgUpdate"
             app:layout_constraintTop_toTopOf="@id/bgReminder" />
@@ -103,25 +103,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:background="#FFF"
-                    app:layout_constraintBottom_toBottomOf="@id/cbBahasa"
+                    app:layout_constraintBottom_toBottomOf="@id/txBahasa"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-            <RadioButton
-                    android:id="@+id/cbBahasa"
+            <TextView
+                    android:id="@+id/txBahasa"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="20dp"
-                    android:layoutDirection="rtl"
-                    android:padding="15dp"
                     android:text="@string/bahasa_indonesia"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textRegular"
-                    app:layout_constraintEnd_toEndOf="@id/bgIndonesia"
-                    app:layout_constraintStart_toStartOf="@id/bgIndonesia"
-                    app:layout_constraintTop_toTopOf="@id/bgIndonesia" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/bgIndonesia"
+                    style="@style/SettingButton"
+                    android:background="?selectableItemBackground"/>
+
+            <RadioButton
+                    android:id="@+id/cbBahasa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/bgIndonesia"
+                    app:layout_constraintBottom_toBottomOf="@id/bgIndonesia"/>
 
             <View
                     android:id="@+id/bgEnglish"
@@ -129,25 +132,28 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="1dp"
                     android:background="#FFF"
-                    app:layout_constraintBottom_toBottomOf="@+id/cbEnglish"
+                    app:layout_constraintBottom_toBottomOf="@+id/txEnglish"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/bgIndonesia" />
 
-            <RadioButton
-                    android:id="@+id/cbEnglish"
+            <TextView
+                    android:id="@+id/txEnglish"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="20dp"
-                    android:layoutDirection="rtl"
-                    android:padding="15dp"
                     android:text="@string/english"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textRegular"
-                    app:layout_constraintEnd_toEndOf="@id/bgEnglish"
-                    app:layout_constraintStart_toStartOf="@id/bgEnglish"
-                    app:layout_constraintTop_toTopOf="@id/bgEnglish" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/bgEnglish"
+                    style="@style/SettingButton"
+                    android:background="?selectableItemBackground"/>
+
+            <RadioButton
+                    android:id="@+id/cbEnglish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/bgEnglish"
+                    app:layout_constraintBottom_toBottomOf="@id/bgEnglish"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

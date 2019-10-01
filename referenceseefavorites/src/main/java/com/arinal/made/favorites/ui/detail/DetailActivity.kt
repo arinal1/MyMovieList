@@ -1,6 +1,7 @@
 package com.arinal.made.favorites.ui.detail
 
 import android.animation.ValueAnimator.ofInt
+import android.content.ContentValues
 import android.graphics.BlendModeColorFilter
 import android.graphics.Color.parseColor
 import android.graphics.PorterDuff.Mode.SRC_ATOP
@@ -22,6 +23,8 @@ import androidx.core.view.get
 import com.arinal.made.favorites.R
 import com.arinal.made.favorites.model.FilmDetailModel
 import com.arinal.made.favorites.model.FilmDetailModel.Genre
+import com.arinal.made.favorites.model.FilmModel
+import com.arinal.made.favorites.model.InsertProviderModel
 import com.arinal.made.favorites.utils.Constants.author
 import com.arinal.made.favorites.utils.Constants.scheme
 import com.arinal.made.favorites.utils.Constants.segment
@@ -36,7 +39,7 @@ import android.graphics.BlendMode.SRC_ATOP as BlendMode_SRC_ATOP
 
 class DetailActivity : AppCompatActivity() {
 
-    private var category = 0
+    private val contentValues = ContentValues()
     private var dwFavorite: Drawable? = null
     private var dwFavorited: Drawable? = null
     private var favoriteMenu: MenuItem? = null
@@ -44,6 +47,8 @@ class DetailActivity : AppCompatActivity() {
     private var isFavorited = true
     private var posterHeight = 0
     private var uri = parse("")
+    private lateinit var filmModel: FilmModel
+    private lateinit var gson: Gson
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,12 +86,11 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        category = intent.getIntExtra("category", 0)
-        val id = intent.getIntExtra("id", 0)
-        val table = if (category == 0) "movie" else "tv"
-        val gson = Gson()
+        filmModel = intent.getParcelableExtra("data")!!
+        val table = if (filmModel.category == 0) "movie" else "tv"
+        gson = Gson()
         uri = Builder().scheme(scheme).authority(author).appendPath(segment).build()
-        uri = parse("$uri/$table/$id")
+        uri = parse("$uri/$table/${filmModel.id}")
         Thread {
             val cursor = contentResolver.query(uri, null, null, null, null)
             if (cursor != null) {
@@ -138,13 +142,12 @@ class DetailActivity : AppCompatActivity() {
                     start()
                 }
             }
-        data.category = category
         filmTitle = data.title
         txTitle.text = filmTitle
         txGenre.text = data.getGenre()
         txRelease.text = data.getRelease()
         txDuration.text = data.getDuration("Hours", "Minutes")
-        if (category == 0) {
+        if (data.category == 0) {
             txBudget.text = data.getBudget()
             txRevenue.text = data.getRevenue()
         }
@@ -152,17 +155,26 @@ class DetailActivity : AppCompatActivity() {
         ratingBar.rating = (data.voteAverage * 5 / 10).toFloat()
         val rating = "${data.voteAverage}/10 User Score"
         txRating.text = rating
+        val json = gson.toJson(InsertProviderModel(filmModel, data))
+        contentValues.put("data", json)
+    }
+
+    private fun insertFavorite() {
+        val stringUri = uri.toString()
+        val uri = parse(stringUri.replace("/${filmModel.id}",""))
+        val response = contentResolver.insert(uri, contentValues)
+        if (response != null) setResult(RESULT_CANCELED, intent)
     }
 
     private fun deleteFavorite() {
-        val cursor = contentResolver.delete(uri, null, null)
-        println(cursor)
-        setResult(RESULT_OK, intent)
+        val response = contentResolver.delete(uri, null, null)
+        if (response == 0) setResult(RESULT_OK, intent)
     }
 
     private fun onClickFavorite() {
         isFavorited = !isFavorited
         favoriteMenu?.icon = if (isFavorited) dwFavorited else dwFavorite
+        if (isFavorited) insertFavorite() else deleteFavorite()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

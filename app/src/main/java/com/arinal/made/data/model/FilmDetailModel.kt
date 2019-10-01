@@ -14,16 +14,16 @@ data class FilmDetailModel(
     @SerializedName("budget")
     @ColumnInfo(name = "budget") val budgets: Float,
 
-    @SerializedName("episode_run_time")
+    @SerializedName("episode_run_time", alternate = ["duration"])
     @ColumnInfo(name = "duration") val duration: List<Int>?,
 
-    @SerializedName(value = "original_title", alternate = ["original_name"])
+    @SerializedName(value = "original_title", alternate = ["original_name", "title"])
     @ColumnInfo(name = "title") val title: String,
 
-    @SerializedName("poster_path")
+    @SerializedName("poster_path", alternate = ["poster"])
     @ColumnInfo(name = "poster") val poster: String,
 
-    @SerializedName(value = "release_date", alternate = ["first_air_date"])
+    @SerializedName(value = "release_date", alternate = ["first_air_date", "releaseDate"])
     @ColumnInfo(name = "releaseDate") val releaseDate: String?,
 
     @SerializedName("revenue")

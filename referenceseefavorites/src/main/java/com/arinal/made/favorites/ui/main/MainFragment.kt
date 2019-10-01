@@ -51,7 +51,17 @@ class MainFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        var setScrollNotLoading = {}
+        recyclerView.addOnScrollListener(object : EndlessScrollListener() {
+            override fun onLoadMore() {
+                setScrollNotLoading = { setNotLoading() }
+                if (dataList.isNotEmpty()) page += 1
+                progressBar.visibility = VISIBLE
+                viewModel.getData(tabPos, page)
+            }
+        })
         swipeRefresh.onRefresh {
+            setScrollNotLoading()
             swipeRefresh.isRefreshing = false
             dataList.clear()
             page = 1
@@ -59,13 +69,6 @@ class MainFragment : Fragment() {
             viewModel.clearData(tabPos)
             viewModel.getData(tabPos, page)
         }
-        recyclerView.addOnScrollListener(object : EndlessScrollListener() {
-            override fun onLoadMore() {
-                if (dataList.isNotEmpty()) page += 1
-                progressBar.visibility = VISIBLE
-                viewModel.getData(tabPos, page)
-            }
-        })
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -79,8 +82,8 @@ class MainFragment : Fragment() {
             viewModel = ViewModelProviders.of(it).get(MainViewModel::class.java)
             val layoutInflater = from(context)
             val glide = with(this)
-            val onClick: (Int, Int) -> Unit = { id, index ->
-                startActivityForResult<DetailActivity>(0, "id" to id, "category" to tabPos, "index" to index)
+            val onClick: (FilmModel, Int) -> Unit = { data, index ->
+                startActivityForResult<DetailActivity>(0, "data" to data, "index" to index)
             }
             adapter = MainAdapter(glide, layoutInflater, dataList, onClick)
         }

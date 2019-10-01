@@ -13,6 +13,7 @@ data class FilmModel(
     val genres: List<Int>,
     val title: String,
     @SerializedName("poster_path") val poster: String?,
+    val category: Int,
     val id: Int,
     val overview: String
 ) : Parcelable {

@@ -29,6 +29,10 @@ abstract class EndlessScrollListener : RecyclerView.OnScrollListener() {
         }
     }
 
+    internal fun setNotLoading() {
+        mLoading = false
+    }
+
     abstract fun onLoadMore()
 
 }

@@ -12,16 +12,16 @@ import java.text.SimpleDateFormat
 data class FilmModel(
     @PrimaryKey(autoGenerate = true) val key: Int,
 
-    @SerializedName(value = "first_air_date", alternate = ["release_date"])
+    @SerializedName(value = "first_air_date", alternate = ["release_date", "release"])
     @ColumnInfo(name = "first_air_date") val release: String?,
 
-    @SerializedName("genre_ids")
+    @SerializedName("genre_ids", alternate = ["genres"])
     val genres: List<Int>,
 
-    @SerializedName(value = "original_name", alternate = ["original_title"])
+    @SerializedName(value = "original_name", alternate = ["original_title", "title"])
     @ColumnInfo(name = "title") val title: String,
 
-    @SerializedName("poster_path")
+    @SerializedName("poster_path", alternate = ["poster"])
     @ColumnInfo(name = "poster_path") val poster: String?,
 
     @ColumnInfo(name = "category") var category: Int,

@@ -9,7 +9,7 @@ import android.net.Uri.Builder
 import com.arinal.made.ReferenceSeeApplication.Companion.updateFavoritesWidget
 import com.arinal.made.data.local.TmdbDao
 import com.arinal.made.data.local.TmdbDatabase
-import com.arinal.made.data.model.FilmModel
+import com.arinal.made.data.model.InsertProviderModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -66,18 +66,21 @@ class FavoriteContentProvider : ContentProvider() {
     }
 
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
-        var json = Gson().toJson(values)
-        json = json.substring(11, json.length - 1)
-        val data = Gson().fromJson<FilmModel>(json, object : TypeToken<FilmModel>() {}.type)
-        val added = when (uriMatcher.match(uri)) {
-            FAVORITE_MOVIE, FAVORITE_TV -> {
-                tmdbDao.insertFavorite(data)
-                updateFavoritesWidget()
-                0
+        val json = values?.getAsString("data") ?: ""
+        return if (json == "") Uri.parse("$CONTENT_URI/-1")
+        else {
+            val data = Gson().fromJson<InsertProviderModel>(json, object : TypeToken<InsertProviderModel>() {}.type)
+            val added = when (uriMatcher.match(uri)) {
+                FAVORITE_MOVIE, FAVORITE_TV -> {
+                    tmdbDao.insertFavorite(data.filmModel)
+                    tmdbDao.insertDetailFilm(listOf(data.filmDetailModel))
+                    updateFavoritesWidget()
+                    0
+                }
+                else -> -1
             }
-            else -> -1
+            Uri.parse("$CONTENT_URI/$added")
         }
-        return Uri.parse("$CONTENT_URI/$added")
     }
 
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?): Int {

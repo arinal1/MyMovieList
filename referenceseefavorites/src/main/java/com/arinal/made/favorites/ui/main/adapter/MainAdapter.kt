@@ -17,7 +17,7 @@ class MainAdapter(
     private val glide: RequestManager,
     private val layoutInflater: LayoutInflater,
     private val dataList: List<FilmModel>,
-    private val onClick: (Int, Int) -> Unit
+    private val onClick: (FilmModel, Int) -> Unit
 ) : Adapter<ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -42,7 +42,7 @@ class MainAdapter(
                 val sinopsis = data.overview.substring(0, 115)
                 "${sinopsis.substring(0, sinopsis.lastIndexOf(" "))}..."
             } else data.overview
-            view.onClick { onClick(data.id, position) }
+            view.onClick { onClick(data, position) }
         }
     }
 }

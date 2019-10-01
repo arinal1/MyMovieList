@@ -14,7 +14,7 @@ data class FilmDetailModel(
     val releaseDate: String?,
     val revenue: Float,
     val voteAverage: Double,
-    var category: Int,
+    val category: Int,
     val id: Int,
     val overview: String,
     val runtime: Int

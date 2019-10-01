@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Reference See Favorites</string>
+    <string name="empty">Data is empty</string>
+    <string name="title_tab_home_1">Movies</string>
+    <string name="title_tab_home_2">Tv Shows</string>
+    <string name="overview">Overview</string>
+    <string name="genre">Genre :&#160;</string>
+    <string name="budget">Budget :&#160;</string>
+    <string name="revenue">Revenue :&#160;</string>
+    <string name="favorite">Favorite</string>
+</resources>

@@ -1,10 +1,10 @@
-package com.arinal.made.ui.home.adapter
+package com.arinal.made.favorites.ui.main.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
-class HomePagerAdapter(
+class MainPagerAdapter(
     private val fragments: Array<Fragment>,
     private val titles: Array<String>,
     fm: FragmentManager

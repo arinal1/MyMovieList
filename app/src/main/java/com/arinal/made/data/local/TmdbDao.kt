@@ -27,7 +27,7 @@ interface TmdbDao {
     @Query("SELECT * FROM film WHERE category = :category LIMIT :start , 10")
     fun getFavoritesContent(category: Int, start: Int): Cursor
     
-    @Query("SELECT * FROM film WHERE category = :category AND id = :id")
+    @Query("SELECT * FROM filmDetail WHERE category = :category AND id = :id")
     fun getFavoriteContent(category: Int, id: Int): Cursor
 
     @Query("SELECT `key` FROM film WHERE category = :category AND id = :id LIMIT 1")

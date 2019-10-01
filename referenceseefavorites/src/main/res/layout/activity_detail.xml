@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapseToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleTextAppearance="@android:color/transparent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/posterLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-48dp"
+                    android:visibility="gone">
+
+                <ImageView
+                        android:id="@+id/ivPoster"
+                        app:layout_collapseMode="parallax"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="centerCrop"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                <Space
+                        android:id="@+id/topViewIntro"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toTopOf="@+id/txTitle"
+                        android:layout_marginBottom="10dp"/>
+
+                <View
+                        android:id="@+id/viewIntro"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/topViewIntro"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:background="#80000000"/>
+
+                <TextView
+                        android:id="@+id/txTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:justificationMode="inter_word"
+                        tools:targetApi="o"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/txRelease"
+                        app:layout_constrainedWidth="true"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:textColor="@color/colorPrimary"/>
+
+                <TextView
+                        android:id="@+id/txRelease"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toTopOf="@id/ratingBar"
+                        app:layout_constraintStart_toStartOf="@id/txTitle"
+                        android:textColor="#CCFFFFFF"
+                        android:layout_marginBottom="5dp"/>
+
+                <TextView
+                        android:id="@+id/txDuration"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toEndOf="@id/txRelease"
+                        app:layout_constraintTop_toTopOf="@id/txRelease"
+                        android:layout_marginStart="20dp"
+                        android:textColor="#CCFFFFFF"/>
+
+                <RatingBar
+                        android:id="@+id/ratingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="?android:attr/ratingBarStyleSmall"
+                        app:layout_constraintStart_toStartOf="@id/txTitle"
+                        app:layout_constraintBottom_toBottomOf="@id/viewIntro"
+                        android:layout_marginBottom="15dp"
+                        android:numStars="5"
+                        android:rating="3.2"
+                        android:theme="@style/RatingBar"/>
+
+                <TextView
+                        android:id="@+id/txRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toEndOf="@id/ratingBar"
+                        app:layout_constraintTop_toTopOf="@id/ratingBar"
+                        android:textColor="#CCFFFFFF"
+                        android:layout_marginStart="10dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                    app:layout_collapseMode="pin"/>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <Space
+                    android:id="@+id/spacer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    android:layout_marginBottom="8dp"/>
+
+            <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-8dp"
+                    android:indeterminate="true"
+                    app:layout_constraintTop_toTopOf="@id/spacer"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                    android:id="@+id/txTitleOverview"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/overview"
+                    android:layout_marginTop="20dp"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/progressBar"
+                    android:visibility="gone"/>
+
+            <TextView
+                    android:id="@+id/txOverview"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="20dp"
+                    tools:targetApi="o"
+                    app:layout_constraintStart_toStartOf="@id/txTitleOverview"
+                    app:layout_constraintEnd_toEndOf="@id/txTitleOverview"
+                    app:layout_constraintTop_toBottomOf="@id/txTitleOverview"/>
+
+            <TextView
+                    android:id="@+id/genre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    tools:targetApi="m"
+                    android:gravity="center_vertical"
+                    app:layout_constraintStart_toStartOf="@id/txOverview"
+                    app:layout_constraintTop_toBottomOf="@id/txOverview"
+                    android:text="@string/genre"
+                    android:visibility="gone"/>
+
+            <TextView
+                    android:id="@+id/txGenre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:targetApi="m"
+                    android:gravity="center_vertical"
+                    app:layout_constraintStart_toEndOf="@+id/genre"
+                    app:layout_constraintTop_toTopOf="@id/genre"/>
+
+            <TextView
+                    android:id="@+id/budget"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    tools:targetApi="m"
+                    android:gravity="center_vertical"
+                    app:layout_constraintTop_toBottomOf="@id/genre"
+                    app:layout_constraintStart_toStartOf="@id/genre"
+                    android:text="@string/budget"
+                    android:visibility="gone"/>
+
+            <TextView
+                    android:id="@+id/txBudget"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    tools:targetApi="m"
+                    android:gravity="center_vertical"
+                    app:layout_constraintTop_toTopOf="@id/budget"
+                    app:layout_constraintStart_toEndOf="@+id/budget"/>
+
+            <TextView
+                    android:id="@+id/revenue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    tools:targetApi="m"
+                    android:gravity="center_vertical"
+                    app:layout_constraintStart_toStartOf="@id/budget"
+                    app:layout_constraintTop_toBottomOf="@id/budget"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/revenue"
+                    android:visibility="gone"/>
+
+            <TextView
+                    android:id="@+id/txRevenue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    tools:targetApi="m"
+                    android:gravity="center_vertical"
+                    app:layout_constraintStart_toEndOf="@id/revenue"
+                    app:layout_constraintTop_toTopOf="@id/revenue"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

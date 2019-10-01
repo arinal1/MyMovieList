@@ -2,6 +2,7 @@ package com.arinal.made.utils
 
 import android.app.AlarmManager
 import android.app.AlarmManager.RTC_WAKEUP
+import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.app.PendingIntent.getBroadcast
 import android.app.job.JobInfo.Builder
 import android.app.job.JobInfo.NETWORK_TYPE_ANY
@@ -69,7 +70,7 @@ class AlarmUtils {
                 .setRequiredNetworkType(NETWORK_TYPE_ANY)
                 .setRequiresDeviceIdle(false)
                 .setRequiresCharging(false)
-                .setPeriodic(15 * 60 * 1000L)
+                .setPeriodic(24 * 60 * 60 * 1000L)
             val jobScheduler = context.getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler
             jobScheduler.schedule(builder.build())
         }
@@ -86,7 +87,7 @@ class AlarmUtils {
 
         private fun setAlarm(time: Long, context: Context, alarmId: Int) {
             val intent = context.intentFor<AlarmReceiver>("alarmId" to alarmId)
-            val pendingIntent = getBroadcast(context, alarmId, intent, 0)
+            val pendingIntent = getBroadcast(context, alarmId, intent, FLAG_UPDATE_CURRENT)
             val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
             alarmManager.setExact(RTC_WAKEUP, time, pendingIntent)
         }

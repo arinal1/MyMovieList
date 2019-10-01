@@ -21,6 +21,9 @@ interface TmdbDao {
     @Query("DELETE FROM filmDetail WHERE `key` = :key")
     fun deleteDetailFilm(key: Int)
 
+    @Query("SELECT * FROM film WHERE category = :category")
+    fun getFavorites(category: Int): List<FilmModel>
+
     @Query("SELECT * FROM film WHERE category = :category LIMIT :start , 10")
     fun getFavorites(category: Int, start: Int): List<FilmModel>
 

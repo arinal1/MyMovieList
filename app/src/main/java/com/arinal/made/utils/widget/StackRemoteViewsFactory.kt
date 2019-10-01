@@ -30,7 +30,7 @@ class StackRemoteViewsFactory(private val context: Context) : RemoteViewsService
 
     override fun onDataSetChanged() {
         favoriteList.clear()
-        favoriteList.addAll(tmdbDao.getFavorites(0, 0))
+        favoriteList.addAll(tmdbDao.getFavorites(0))
     }
 
     override fun getViewAt(position: Int): RemoteViews {

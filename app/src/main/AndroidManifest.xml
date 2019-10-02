@@ -39,17 +39,6 @@
                 android:readPermission="com.arinal.made.READ_DATABASE"
                 android:writePermission="com.arinal.made.WRITE_DATABASE" />
 
-        <service
-                android:name=".services.DailyUpdateService"
-                android:enabled="true"
-                android:exported="false"
-                android:permission="android.permission.BIND_JOB_SERVICE" />
-        <service
-                android:name=".services.ReminderService"
-                android:enabled="true"
-                android:exported="false"
-                android:permission="android.permission.BIND_JOB_SERVICE" />
-
         <receiver
                 android:name=".services.AlarmReceiver"
                 android:enabled="true"
